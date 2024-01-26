@@ -5,9 +5,9 @@ import {Navbar} from "./components/Navbar/Navbar";
 import {Profile} from "./components/Profile/Profile";
 import {Dialogs} from "./components/Dialogs/Dialogs";
 import {BrowserRouter, Route} from "react-router-dom";
-import {RootStateType} from "./redux/state";
+import {StoreStateType} from "./redux/state";
 
-function App(props: RootStateType) {
+function App(props: StoreStateType) {
     return (
         <BrowserRouter>
             <div className='app-wrapper'>
@@ -15,17 +15,17 @@ function App(props: RootStateType) {
                 <Navbar/>
                 <div className='app-wrapper-content'>
                     <Route exact path='/messages'
-                           render={() => <Dialogs dialogsData={props.state.dialogsPage.dialogsData}
-                                                  messagesData={props.state.dialogsPage.messagesData}
-                                                  newMessageText={props.state.dialogsPage.newMessageText}
-                                                  addMessagePost={props.addMessagePost}
-                                                  updateNewMessageText={props.updateNewMessageText}
+                           render={() => <Dialogs dialogsData={props.store.state.dialogsPage.dialogsData}
+                                                  messagesData={props.store.state.dialogsPage.messagesData}
+                                                  newMessageText={props.store.state.dialogsPage.newMessageText}
+                                                  addMessagePost={props.store.addMessagePost}
+                                                  updateNewMessageText={props.store.updateNewMessageText}
                            />}/>
                     <Route exact path='/profile'
-                           render={() => <Profile postsData={props.state.profilePage.postsData}
-                                                  addPost={props.addPost}
-                                                  newPostText={props.state.profilePage.newPostText}
-                                                  updateNewPostText={props.updateNewPostText}/>}/>
+                           render={() => <Profile postsData={props.store.state.profilePage.postsData}
+                                                  addPost={props.store.addPost}
+                                                  newPostText={props.store.state.profilePage.newPostText}
+                                                  updateNewPostText={props.store.updateNewPostText}/>}/>
                 </div>
             </div>
         </BrowserRouter>
