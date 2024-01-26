@@ -16,9 +16,16 @@ function App(props: RootStateType) {
                 <div className='app-wrapper-content'>
                     <Route exact path='/messages'
                            render={() => <Dialogs dialogsData={props.state.dialogsPage.dialogsData}
-                                                  messagesData={props.state.dialogsPage.messagesData}/>}/>
+                                                  messagesData={props.state.dialogsPage.messagesData}
+                                                  newMessageText={props.state.dialogsPage.newMessageText}
+                                                  addMessagePost={props.addMessagePost}
+                                                  updateNewMessageText={props.updateNewMessageText}
+                           />}/>
                     <Route exact path='/profile'
-                           render={() => <Profile postsData={props.state.profilePage.postsData}/>}/>
+                           render={() => <Profile postsData={props.state.profilePage.postsData}
+                                                  addPost={props.addPost}
+                                                  newPostText={props.state.profilePage.newPostText}
+                                                  updateNewPostText={props.updateNewPostText}/>}/>
                 </div>
             </div>
         </BrowserRouter>

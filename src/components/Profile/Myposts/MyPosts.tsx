@@ -1,23 +1,33 @@
-import React from 'react';
+import React, {useRef} from 'react';
 import s from './MyPosts.module.css'
 import {Post} from "./Post/Post";
-import {ProfileType} from "../../../redux/state";
+import {ProfileStateTypeWithCallback} from "../../../redux/state";
 
-export const MyPosts = (props: ProfileType) => {
+export const MyPosts = (props: ProfileStateTypeWithCallback) => {
 
 
     let postsElement = props.postsData.map(
         (el) => <Post message={el.message} likeCount={el.likesCount} id={el.id}/>
     )
+
+    let newPostEl = useRef<HTMLTextAreaElement>(null)
+    const addPost = () => {
+        props.addPost()
+    }
+    const onPostChange = () => {
+        if (newPostEl.current !== null) {
+            props.updateNewPostText(newPostEl.current.value)
+        }
+    }
+
     return <div className={s.postsBlock}>
         <h3>Posts</h3>
         <div>
             <div>
-                <textarea>
-            </textarea>
+                <textarea onChange={onPostChange} ref={newPostEl} value={props.newPostText}/>
             </div>
             <div>
-                <button>
+                <button onClick={addPost}>
                     Add post
                 </button>
             </div>
@@ -28,7 +38,6 @@ export const MyPosts = (props: ProfileType) => {
             </div>
         </div>
         <div className={s.posts}>
-            {postsElement}
             {postsElement}
         </div>
     </div>
