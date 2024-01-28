@@ -3,9 +3,9 @@ import React from 'react';
 export type RootStateType = {
     state: MainStateType
     addPost: () => void
-    addMessagePost: () => void
+    // addMessagePost: () => void
     updateNewPostText: (newText: string) => void
-    updateNewMessageText: (newText:string) => void
+    // updateNewMessageText: (newText: string) => void
 }
 export type MainStateType = {
     profilePage: ProfileType
@@ -33,8 +33,8 @@ export type MainDialogsTypeWithCb = {
     dialogsData: Array<DialogsDataType>
     messagesData: Array<MessagesDataType>
     newMessageText: string
-    addMessagePost: () => void
-    updateNewMessageText: (newText:string) => void
+    // addMessagePost: () => void
+    // updateNewMessageText: (newText: string) => void
 }
 export type MainDialogsType = {
     dialogsData: Array<DialogsDataType>
@@ -52,64 +52,111 @@ type MessagesDataType = {
     message: string
 }
 
-let rerenderEntireTree = () => {
-    console.log("state was changed")
-}
-export const state = {
-    profilePage: {
-        postsData: [
-            {id: "1", message: "Hi, how are you, man?", likesCount: 2},
-            {id: "2", message: "Okay", likesCount: 9},
-            {id: "3", message: "ZZZZZ", likesCount: 18},
-        ],
-        newPostText: "It-incubator"
+// let rerenderEntireTree = () => {
+//     console.log("state was changed")
+// }
+
+export let store = {
+    _state: {
+        profilePage: {
+            postsData: [
+                {id: "1", message: "Hi, how are you, man?", likesCount: 2},
+                {id: "2", message: "Okay", likesCount: 9},
+                {id: "3", message: "ZZZZZ", likesCount: 18},
+            ],
+            newPostText: "It-incubator"
+        },
+        dialogsPage: {
+            dialogsData: [
+                {id: "1", name: "Kostja"},
+                {id: "2", name: "Alexey"},
+                {id: "3", name: "Valera"},
+                {id: "4", name: "Oleg"},
+                {id: "5", name: "Petja"},
+            ],
+            messagesData: [
+                {id: "1", message: "Hello"},
+                {id: "2", message: "Welcome"},
+                {id: "3", message: "ZZZZZ"},
+                {id: "4", message: "How you day?"},
+            ],
+            newMessageText: "New text you"
+        }
     },
-    dialogsPage: {
-        dialogsData: [
-            {id: "1", name: "Kostja"},
-            {id: "2", name: "Alexey"},
-            {id: "3", name: "Valera"},
-            {id: "4", name: "Oleg"},
-            {id: "5", name: "Petja"},
-        ],
-        messagesData: [
-            {id: "1", message: "Hello"},
-            {id: "2", message: "Welcome"},
-            {id: "3", message: "ZZZZZ"},
-            {id: "4", message: "How you day?"},
-        ],
-        newMessageText: "New text you"
+    getState() {
+        debugger
+        return this._state
+    },
+    _callSubscriber: (state: any) => {
+        console.log("state was changed")
+    },
+    addPost() {
+        let newPost = {
+            id: "4",
+            message: this._state.profilePage.newPostText,
+            likesCount: 2
+        }
+        this._state.profilePage.postsData.push(newPost);
+        this._state.profilePage.newPostText = ""
+        this._callSubscriber(this._state)
+    },
+    updateNewPostText(newText: string) {
+        this._state.profilePage.newPostText = newText;
+        this._callSubscriber(this._state)
+    },
+    subscribe(observer: any) {
+        this._callSubscriber = observer;
     }
+    // addMessagePost: () => {
+    //     let newMessage = {
+    //         id: "5",
+    //         message: state.dialogsPage.newMessageText
+    //     }
+    //     state.dialogsPage.messagesData.push(newMessage);
+    //     state.dialogsPage.newMessageText = ""
+    //     rerenderEntireTree()
+    // },
+
+    // updateNewMessageText: (newText: string) => {
+    //     state.dialogsPage.newMessageText = newText;
+    //     rerenderEntireTree()
+    // },
+
 }
-export const addPost = () => {
-    let newPost = {
-        id: "4",
-        message: state.profilePage.newPostText,
-        likesCount: 2
-    }
-    state.profilePage.postsData.push(newPost);
-    state.profilePage.newPostText = ""
-    rerenderEntireTree();
-}
-export const addMessagePost = () => {
-    let newMessage = {
-        id: "5",
-        message: state.dialogsPage.newMessageText
-    }
-    state.dialogsPage.messagesData.push(newMessage);
-    state.dialogsPage.newMessageText = ""
-    rerenderEntireTree()
-}
-export const updateNewMessageText = (newText: string) =>{
-    state.dialogsPage.newMessageText = newText;
-    rerenderEntireTree()
-}
-export const updateNewPostText = (newText: string) => {
-    state.profilePage.newPostText = newText;
-    rerenderEntireTree()
-}
-export const subscribe = (observer: any) => {
-    rerenderEntireTree = observer;
-}
+
+// export const addPost = () => {
+//     let newPost = {
+//         id: "4",
+//         message: state.profilePage.newPostText,
+//         likesCount: 2
+//     }
+//     state.profilePage.postsData.push(newPost);
+//     state.profilePage.newPostText = ""
+//     rerenderEntireTree();
+// }
+
+// export const addMessagePost = () => {
+//     let newMessage = {
+//         id: "5",
+//         message: state.dialogsPage.newMessageText
+//     }
+//     state.dialogsPage.messagesData.push(newMessage);
+//     state.dialogsPage.newMessageText = ""
+//     rerenderEntireTree()
+// }
+
+// export const updateNewMessageText = (newText: string) => {
+//     state.dialogsPage.newMessageText = newText;
+//     rerenderEntireTree()
+// }
+
+// export const updateNewPostText = (newText: string) => {
+//     state.profilePage.newPostText = newText;
+//     rerenderEntireTree()
+// }
+
+// export const subscribe = (observer: any) => {
+//     rerenderEntireTree = observer;
+// }
 
 

@@ -19,14 +19,14 @@ export const Dialogs = (props: MainDialogsTypeWithCb) => {
     //     }
     // }
 
-    const onMessageChange = () => {
-        if (newDialogText.current !== null) {
-            props.updateNewMessageText(newDialogText.current.value)
-        }
-    }
-    const addPost = () => {
-        props.addMessagePost()
-    }
+    // const onMessageChange = () => {
+    //     if (newDialogText.current !== null) {
+    //         props.updateNewMessageText(newDialogText.current.value)
+    //     }
+    // }
+    // const addPost = () => {
+    //     props.addMessagePost()
+    // }
 
     return (
         <div className={s.dialogs}>
@@ -36,10 +36,10 @@ export const Dialogs = (props: MainDialogsTypeWithCb) => {
             <div className={s.messagesInDialogs}>
                 {messagesElements}
 
-                <textarea onChange={onMessageChange} ref={newDialogText} value={props.newMessageText}/>
+                <textarea onChange={()=>{}} ref={newDialogText} value={props.newMessageText}/>
 
                 <div>
-                    <button onClick={addPost}>
+                    <button onClick={()=>{}}>
                         Add post
                     </button>
                 </div>

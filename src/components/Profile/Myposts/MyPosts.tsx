@@ -12,6 +12,7 @@ export const MyPosts = (props: ProfileStateTypeWithCallback) => {
 
     let newPostEl = useRef<HTMLTextAreaElement>(null)
     const addPost = () => {
+        debugger
         props.addPost()
     }
     const onPostChange = () => {

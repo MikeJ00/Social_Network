@@ -18,8 +18,8 @@ function App(props: RootStateType) {
                            render={() => <Dialogs dialogsData={props.state.dialogsPage.dialogsData}
                                                   messagesData={props.state.dialogsPage.messagesData}
                                                   newMessageText={props.state.dialogsPage.newMessageText}
-                                                  addMessagePost={props.addMessagePost}
-                                                  updateNewMessageText={props.updateNewMessageText}
+                                                  // addMessagePost={props.addMessagePost}
+                                                  // updateNewMessageText={props.updateNewMessageText}
                            />}/>
                     <Route exact path='/profile'
                            render={() => <Profile postsData={props.state.profilePage.postsData}
