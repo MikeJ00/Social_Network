@@ -23,9 +23,11 @@ function App(props: RootStateType) {
                            />}/>
                     <Route exact path='/profile'
                            render={() => <Profile postsData={props.state.profilePage.postsData}
-                                                  addPost={props.addPost}
+                                                  dispatch = {props.dispatch}
                                                   newPostText={props.state.profilePage.newPostText}
-                                                  updateNewPostText={props.updateNewPostText}/>}/>
+                                                  // addPost={props.addPost}
+                                                  // updateNewPostText={props.updateNewPostText}
+                               />}/>
                 </div>
             </div>
         </BrowserRouter>

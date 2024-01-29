@@ -2,9 +2,10 @@ import React from 'react';
 
 export type RootStateType = {
     state: MainStateType
-    addPost: () => void
+    dispatch: (action: any) => void
+    // addPost: () => void
     // addMessagePost: () => void
-    updateNewPostText: (newText: string) => void
+    // updateNewPostText: (newText: string) => void
     // updateNewMessageText: (newText: string) => void
 }
 export type MainStateType = {
@@ -15,8 +16,9 @@ export type MainStateType = {
 export type ProfileStateTypeWithCallback = {
     postsData: Array<PostsDataType>
     newPostText: string
-    addPost: () => void
-    updateNewPostText: (newText: string) => void
+    dispatch: (action: any) => void
+    // addPost: () => void
+    // updateNewPostText: (newText: string) => void
 }
 export type ProfileType = {
     postsData: Array<PostsDataType>
@@ -83,13 +85,18 @@ export let store = {
             newMessageText: "New text you"
         }
     },
+    _callSubscriber: (state: any) => {
+        console.log("state was changed")
+    },
+
     getState() {
         debugger
         return this._state
     },
-    _callSubscriber: (state: any) => {
-        console.log("state was changed")
+    subscribe(observer: any) {
+        this._callSubscriber = observer;
     },
+
     addPost() {
         let newPost = {
             id: "4",
@@ -104,25 +111,53 @@ export let store = {
         this._state.profilePage.newPostText = newText;
         this._callSubscriber(this._state)
     },
-    subscribe(observer: any) {
-        this._callSubscriber = observer;
+
+    dispatch(action: any) {
+        if (action.type === ADD_POST) {
+            let newPost = {
+                id: "4",
+                message: this._state.profilePage.newPostText,
+                likesCount: 2
+            }
+            this._state.profilePage.postsData.push(newPost);
+            this._state.profilePage.newPostText = ""
+            this._callSubscriber(this._state)
+        } else if (action.type === UPDATE_NEW_POST_TEXT) {
+            debugger
+            this._state.profilePage.newPostText = action.newText;
+            this._callSubscriber(this._state)
+        } else if(action.type === ){
+
+        }
     }
-    // addMessagePost: () => {
-    //     let newMessage = {
-    //         id: "5",
-    //         message: state.dialogsPage.newMessageText
-    //     }
-    //     state.dialogsPage.messagesData.push(newMessage);
-    //     state.dialogsPage.newMessageText = ""
-    //     rerenderEntireTree()
-    // },
-
-    // updateNewMessageText: (newText: string) => {
-    //     state.dialogsPage.newMessageText = newText;
-    //     rerenderEntireTree()
-    // },
-
 }
+
+const ADD_POST = "ADD-POST";
+const UPDATE_NEW_POST_TEXT = "UPDATE-NEW-POST-TEXT";
+const ADD_MESSAGE_POST = "ADD-MESSAGE-POST"
+export let addPostAC = () => ({type: ADD_POST})
+export let updateNewPostTextAC = (text: string) =>
+    ({type: UPDATE_NEW_POST_TEXT, newText: text})
+export let addMessagePost = () =>{
+    return{
+        type:ADD_MESSAGE_POST
+    }
+}
+
+// addMessagePost: () => {
+//     let newMessage = {
+//         id: "5",
+//         message: state.dialogsPage.newMessageText
+//     }
+//     state.dialogsPage.messagesData.push(newMessage);
+//     state.dialogsPage.newMessageText = ""
+//     rerenderEntireTree()
+// },
+
+// updateNewMessageText: (newText: string) => {
+//     state.dialogsPage.newMessageText = newText;
+//     rerenderEntireTree()
+// },
 
 // export const addPost = () => {
 //     let newPost = {
@@ -133,21 +168,6 @@ export let store = {
 //     state.profilePage.postsData.push(newPost);
 //     state.profilePage.newPostText = ""
 //     rerenderEntireTree();
-// }
-
-// export const addMessagePost = () => {
-//     let newMessage = {
-//         id: "5",
-//         message: state.dialogsPage.newMessageText
-//     }
-//     state.dialogsPage.messagesData.push(newMessage);
-//     state.dialogsPage.newMessageText = ""
-//     rerenderEntireTree()
-// }
-
-// export const updateNewMessageText = (newText: string) => {
-//     state.dialogsPage.newMessageText = newText;
-//     rerenderEntireTree()
 // }
 
 // export const updateNewPostText = (newText: string) => {

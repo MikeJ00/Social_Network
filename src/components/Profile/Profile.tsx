@@ -9,8 +9,10 @@ export const Profile = (props: ProfileStateTypeWithCallback) => {
             <ProfileInfo/>
             <MyPosts postsData={props.postsData}
                      newPostText={props.newPostText}
-                     addPost={props.addPost}
-                     updateNewPostText={props.updateNewPostText}/>
+                     dispatch={props.dispatch}
+                     // addPost={props.addPost}
+                     // updateNewPostText={props.updateNewPostText}
+            />
         </div>
     )
 }
