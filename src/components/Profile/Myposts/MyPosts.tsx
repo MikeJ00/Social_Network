@@ -15,8 +15,8 @@ export const MyPosts = (props: ProfileStateTypeWithCallback) => {
         props.dispatch(addPostAC())
     }
     const onPostChange = () => {
+        if (newPostEl.current !== null) {
         let text = newPostEl.current.value
-        if (text !== null) {
             // props.dispatch({type: "UPDATE-NEW-POST-TEXT", newText:text})
             props.dispatch(updateNewPostTextAC(text))
         }

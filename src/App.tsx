@@ -14,20 +14,22 @@ function App(props: RootStateType) {
                 <Header/>
                 <Navbar/>
                 <div className='app-wrapper-content'>
-                    <Route exact path='/messages'
-                           render={() => <Dialogs dialogsData={props.state.dialogsPage.dialogsData}
-                                                  messagesData={props.state.dialogsPage.messagesData}
-                                                  newMessageText={props.state.dialogsPage.newMessageText}
-                                                  // addMessagePost={props.addMessagePost}
-                                                  // updateNewMessageText={props.updateNewMessageText}
+                    <Route exact path='/dialogs'
+                           render={() => <Dialogs
+                               dialogsData={props.state.dialogsPage.dialogsData}
+                               messagesData={props.state.dialogsPage.messagesData}
+                               newMessageText={props.state.dialogsPage.newMessageText}
+                               dispatch={props.dispatch}
+                               // addMessagePost={props.addMessagePost}
+                               // updateNewMessageText={props.updateNewMessageText}
                            />}/>
                     <Route exact path='/profile'
                            render={() => <Profile postsData={props.state.profilePage.postsData}
-                                                  dispatch = {props.dispatch}
                                                   newPostText={props.state.profilePage.newPostText}
-                                                  // addPost={props.addPost}
-                                                  // updateNewPostText={props.updateNewPostText}
-                               />}/>
+                                                  dispatch={props.dispatch}
+                               // addPost={props.addPost}
+                               // updateNewPostText={props.updateNewPostText}
+                           />}/>
                 </div>
             </div>
         </BrowserRouter>
