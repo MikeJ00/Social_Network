@@ -1,7 +1,9 @@
 import React, {useRef} from 'react';
 import s from './MyPosts.module.css'
 import {Post} from "./Post/Post";
-import {addPostAC, ProfileStateTypeWithCallback, updateNewPostTextAC} from "../../../redux/state";
+import {addPostAC, updateNewPostTextAC} from "../../../redux/profile-reducer";
+import {ProfileStateTypeWithCallback} from "../../../redux/state";
+
 
 export const MyPosts = (props: ProfileStateTypeWithCallback) => {
     let postsElement = props.postsData.map(

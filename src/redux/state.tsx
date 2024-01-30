@@ -1,4 +1,6 @@
 import React from 'react';
+import {profileReducer} from "./profile-reducer";
+import {dialogsReducer} from "./dialogs-reducer";
 
 export type RootStateType = {
     state: MainStateType
@@ -39,6 +41,7 @@ export type MainDialogsTypeWithCb = {
     // addMessagePost: () => void
     // updateNewMessageText: (newText: string) => void
 }
+export type MainProfileType = {}
 export type MainDialogsType = {
     dialogsData: Array<DialogsDataType>
     messagesData: Array<MessagesDataType>
@@ -54,10 +57,6 @@ type MessagesDataType = {
     id: string,
     message: string
 }
-
-// let rerenderEntireTree = () => {
-//     console.log("state was changed")
-// }
 
 export let store = {
     _state: {
@@ -97,52 +96,38 @@ export let store = {
         this._callSubscriber = observer;
     },
     dispatch(action: any) {
-        if (action.type === ADD_POST) {
-            let newPost = {
-                id: "4",
-                message: this._state.profilePage.newPostText,
-                likesCount: 2
-            }
-            this._state.profilePage.postsData.push(newPost);
-            this._state.profilePage.newPostText = ""
-            this._callSubscriber(this._state)
-        }
-        else if (action.type === UPDATE_NEW_POST_TEXT) {
-            debugger
-            this._state.profilePage.newPostText = action.newText;
-            this._callSubscriber(this._state)}
-        else if(action.type === ADD_MESSAGE_POST){
-            let newMessage = {
-                id: "5",
-                message: this._state.dialogsPage.newMessageText
-            }
-            this._state.dialogsPage.messagesData.push(newMessage);
-            this._state.dialogsPage.newMessageText = ""
-            this._callSubscriber(this._state)}
-        else if(action.type === UPDATE_NEW_MESSAGE_TEXT){
-            this._state.dialogsPage.newMessageText = action.newMessText;
-            this._callSubscriber(this._state)
-        }
+        this._state.profilePage = profileReducer(this._state.profilePage, action);
+        this._state.dialogsPage = dialogsReducer(this._state.dialogsPage, action);
+        this._callSubscriber(this._state)
+
+        // if (action.type === ADD_POST) {
+        //     let newPost = {
+        //         id: "4",
+        //         message: this._state.profilePage.newPostText,
+        //         likesCount: 2
+        //     }
+        //     this._state.profilePage.postsData.push(newPost);
+        //     this._state.profilePage.newPostText = ""
+        //     this._callSubscriber(this._state)
+        // }
+        // else if (action.type === UPDATE_NEW_POST_TEXT) {
+        //     debugger
+        //     this._state.profilePage.newPostText = action.newText;
+        //     this._callSubscriber(this._state)}
+        // else if(action.type === ADD_MESSAGE_POST){
+        //     let newMessage = {
+        //         id: "5",
+        //         message: this._state.dialogsPage.newMessageText
+        //     }
+        //     this._state.dialogsPage.messagesData.push(newMessage);
+        //     this._state.dialogsPage.newMessageText = ""
+        //     this._callSubscriber(this._state)}
+        // else if(action.type === UPDATE_NEW_MESSAGE_TEXT){
+        //     this._state.dialogsPage.newMessageText = action.newMessText;
+        //     this._callSubscriber(this._state)
+        // }
     }
 }
 
-const ADD_POST = "ADD-POST";
-const UPDATE_NEW_POST_TEXT = "UPDATE-NEW-POST-TEXT";
-const ADD_MESSAGE_POST = "ADD-MESSAGE-POST"
-const UPDATE_NEW_MESSAGE_TEXT = "UPDATE-NEW-MESSAGE-TEXT"
-export let addPostAC = () => ({type: ADD_POST})
-export let updateNewPostTextAC = (text: string) =>
-    ({type: UPDATE_NEW_POST_TEXT, newText: text})
-export let addMessagePostAC = () =>{
-    return{
-        type:ADD_MESSAGE_POST
-    }
-}
-export let updateNewMessageTextAC = (newMessageText:string) =>{
-    return{
-        type:UPDATE_NEW_MESSAGE_TEXT,
-        newMessText:newMessageText
-    }
-}
 
 
