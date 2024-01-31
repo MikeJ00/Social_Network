@@ -2,7 +2,7 @@ import React, {ChangeEventHandler, useRef} from 'react';
 import s from './Dialogs.module.css'
 import {DialogItem} from "./DialogItem/DialogItem";
 import {DialogMessage} from "./DialogMessage/DialogMessage";
-import {MainDialogsTypeWithCb, } from "../../redux/state";
+import {MainDialogsTypeWithCb, } from "../../redux/store";
 import {addMessagePostAC, updateNewMessageTextAC} from "../../redux/dialogs-reducer";
 
 

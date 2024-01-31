@@ -2,7 +2,7 @@ import React, {useRef} from 'react';
 import s from './MyPosts.module.css'
 import {Post} from "./Post/Post";
 import {addPostAC, updateNewPostTextAC} from "../../../redux/profile-reducer";
-import {ProfileStateTypeWithCallback} from "../../../redux/state";
+import {ProfileStateTypeWithCallback} from "../../../redux/store";
 
 
 export const MyPosts = (props: ProfileStateTypeWithCallback) => {

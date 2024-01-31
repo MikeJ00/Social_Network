@@ -1,7 +1,7 @@
 import React from 'react';
 import {MyPosts} from "./Myposts/MyPosts";
 import {ProfileInfo} from "./ProfileInfo/ProfileInfo";
-import {ProfileStateTypeWithCallback} from "../../redux/state";
+import {ProfileStateTypeWithCallback} from "../../redux/store";
 
 export const Profile = (props: ProfileStateTypeWithCallback) => {
     return (
