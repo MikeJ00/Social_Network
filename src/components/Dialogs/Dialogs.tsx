@@ -1,26 +1,22 @@
-import React, {ChangeEventHandler, useRef} from 'react';
+import React, {ChangeEvent} from 'react';
 import s from './Dialogs.module.css'
 import {DialogItem} from "./DialogItem/DialogItem";
 import {DialogMessage} from "./DialogMessage/DialogMessage";
-import {MainDialogsTypeWithCb, } from "../../redux/store";
-import {addMessagePostAC, updateNewMessageTextAC} from "../../redux/dialogs-reducer";
+import {DialogsTypeLesson43,} from "../../redux/store";
 
 
-export const Dialogs = (props: MainDialogsTypeWithCb) => {
+export const Dialogs = (props: DialogsTypeLesson43) => {
     let dialogsElements = props.dialogsData.map(
         (el) => <DialogItem name={el.name} id={el.id}/>)
     let messagesElements = props.messagesData.map(
         (el) => <DialogMessage message={el.message} id={el.id}/>
     )
 
-    let newDialogText = useRef<HTMLTextAreaElement>(null)
-
-    const onMessageChange = (e:any) => {
-        let newMessageText = e.target.value
-        props.dispatch(updateNewMessageTextAC(newMessageText))
+    const onMessageChange = (e: ChangeEvent<HTMLTextAreaElement>) => {
+        props.changeNewMessageTextCb(e.currentTarget.value)
     }
     const addMessage = () => {
-        props.dispatch(addMessagePostAC())
+        props.onAddMessage(props.newMessageText)
     }
 
     return (
@@ -32,7 +28,6 @@ export const Dialogs = (props: MainDialogsTypeWithCb) => {
                 {messagesElements}
                 <textarea onChange={onMessageChange}
                           placeholder={"Enter you message"}
-                          ref={newDialogText}
                           value={props.newMessageText}/>
 
                 <div>

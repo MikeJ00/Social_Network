@@ -19,7 +19,7 @@ let initialState = {
     ],
     newMessageText: "New text you"
 };
-export const dialogsReducer = (state = initialState, action:RootActionType):MainDialogsType => {
+export const dialogsReducer = (state = initialState, action:RootActionDialogType):MainDialogsType => {
 
     switch (action.type) {
         case ADD_MESSAGE_POST:
@@ -48,6 +48,6 @@ export let updateNewMessageTextAC = (newMessageText:string) =>{
         newMessText:newMessageText
     } as const
 }
-type RootActionType = updateNewMessageTextActionType | addMessagePostActionType
+export type RootActionDialogType = updateNewMessageTextActionType | addMessagePostActionType
 type updateNewMessageTextActionType = ReturnType<typeof updateNewMessageTextAC>
 type addMessagePostActionType = ReturnType<typeof addMessagePostAC>

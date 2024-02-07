@@ -5,9 +5,9 @@ import {Navbar} from "./components/Navbar/Navbar";
 import {Profile} from "./components/Profile/Profile";
 import {Dialogs} from "./components/Dialogs/Dialogs";
 import {BrowserRouter, Route} from "react-router-dom";
-import {RootStateType} from "./redux/store";
+import {DialogsContainer} from "./components/Dialogs/DialogsContainer";
 
-function App(props: RootStateType) {
+function App(props: any) {
     debugger
     return (
         <BrowserRouter>
@@ -16,20 +16,12 @@ function App(props: RootStateType) {
                 <Navbar/>
                 <div className='app-wrapper-content'>
                     <Route exact path='/dialogs'
-                           render={() => <Dialogs
-                               dialogsData={props.state.dialogsPage.dialogsData}
-                               messagesData={props.state.dialogsPage.messagesData}
-                               newMessageText={props.state.dialogsPage.newMessageText}
-                               dispatch={props.dispatch}
-                               // addMessagePost={props.addMessagePost}
-                               // updateNewMessageText={props.updateNewMessageText}
+                           render={() => <DialogsContainer
+                               store={props.store}
                            />}/>
                     <Route exact path='/profile'
-                           render={() => <Profile postsData={props.state.profilePage.postsData}
-                                                  newPostText={props.state.profilePage.newPostText}
-                                                  dispatch={props.dispatch}
-                               // addPost={props.addPost}
-                               // updateNewPostText={props.updateNewPostText}
+                           render={() => <Profile
+                               store={props.store}
                            />}/>
                 </div>
             </div>

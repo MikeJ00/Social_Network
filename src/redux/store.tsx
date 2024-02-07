@@ -1,10 +1,11 @@
 import React from 'react';
 import {profileReducer} from "./profile-reducer";
 import {dialogsReducer} from "./dialogs-reducer";
+import {RootStoreRedux} from "./redux-store";
 
 export type RootStateType = {
     state: MainStateType
-    dispatch: (action: any) => void
+    // dispatch: (action: any) => void
     // addPost: () => void
     // addMessagePost: () => void
     // updateNewPostText: (newText: string) => void
@@ -21,6 +22,19 @@ export type ProfileStateTypeWithCallback = {
     dispatch: (action: any) => void
     // addPost: () => void
     // updateNewPostText: (newText: string) => void
+}
+export type DialogsTypeLesson43 = {
+    dialogsData: Array<DialogsDataType>
+    messagesData: Array<MessagesDataType>
+    newMessageText: string
+    changeNewMessageTextCb: (text: string) => void
+    onAddMessage: (newMessageText: string) => void
+}
+export type MyPostsTypeLesson43 = {
+    postsData: Array<PostsDataType>
+    newPostText: string
+    changeNewTextCallBack: (text: string) => void
+    onAddPost: (newPostText: string) => void
 }
 export type ProfileType = {
     postsData: Array<PostsDataType>
@@ -41,7 +55,6 @@ export type MainDialogsTypeWithCb = {
     // addMessagePost: () => void
     // updateNewMessageText: (newText: string) => void
 }
-export type MainProfileType = {}
 export type MainDialogsType = {
     dialogsData: Array<DialogsDataType>
     messagesData: Array<MessagesDataType>
@@ -57,7 +70,9 @@ type MessagesDataType = {
     id: string,
     message: string
 }
-
+export type RootStoreType = {
+    store: RootStoreRedux
+}
 export let store = {
     _state: {
         profilePage: {
@@ -85,7 +100,7 @@ export let store = {
             newMessageText: "New text you"
         }
     },
-    _callSubscriber (state: any) {
+    _callSubscriber(state: any) {
         console.log("state was changed")
     },
     getState() {

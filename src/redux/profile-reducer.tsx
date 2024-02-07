@@ -1,6 +1,5 @@
 import React from 'react';
 import {ProfileType} from "./store";
-import {addMessagePostAC, updateNewMessageTextAC} from "./dialogs-reducer";
 
 const ADD_POST = "ADD-POST";
 const UPDATE_NEW_POST_TEXT = "UPDATE-NEW-POST-TEXT";
@@ -12,7 +11,7 @@ let initialState = {
     ],
     newPostText: "It-incubator"
 }
-export const profileReducer = (state = initialState, action:RootActionType):ProfileType => {
+export const profileReducer = (state = initialState, action:RootActionProfileType):ProfileType => {
     debugger
     switch (action.type) {
         case ADD_POST:
@@ -37,6 +36,6 @@ export let updateNewPostTextAC = (text: string) =>
     ({type: UPDATE_NEW_POST_TEXT, newText: text} as const)
 
 // type MainActionType = typeof addPostAC | typeof updateNewPostTextAC
-type RootActionType = updateNewPostTextActionType | addPostActionType
+export type RootActionProfileType = updateNewPostTextActionType | addPostActionType
 type updateNewPostTextActionType = ReturnType<typeof updateNewPostTextAC>
 type addPostActionType = ReturnType<typeof addPostAC>
