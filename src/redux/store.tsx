@@ -30,6 +30,10 @@ export type DialogsTypeLesson43 = {
     changeNewMessageTextCb: (text: string) => void
     onAddMessage: (newMessageText: string) => void
 }
+export type mapDispatchToPropsType = {
+    changeNewMessageTextCb: (text: string) => void
+    onAddMessage: (newMessageText: string) => void
+}
 export type MyPostsTypeLesson43 = {
     postsData: Array<PostsDataType>
     newPostText: string

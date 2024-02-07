@@ -10,7 +10,6 @@ import {DialogsContainer} from "./components/Dialogs/DialogsContainer";
 function App(props: any) {
     debugger
     return (
-        <BrowserRouter>
             <div className='app-wrapper'>
                 <Header/>
                 <Navbar/>
@@ -25,7 +24,6 @@ function App(props: any) {
                            />}/>
                 </div>
             </div>
-        </BrowserRouter>
     );
 }
 
