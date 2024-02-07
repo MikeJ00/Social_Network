@@ -15,8 +15,8 @@ export const Dialogs = (props: DialogsTypeLesson43) => {
     const onMessageChange = (e: ChangeEvent<HTMLTextAreaElement>) => {
         props.changeNewMessageTextCb(e.currentTarget.value)
     }
-    const addMessage = () => {
-        props.onAddMessage(props.newMessageText)
+    const onAddMessage = () => {
+        props.addMessage(props.newMessageText)
     }
 
     return (
@@ -31,7 +31,7 @@ export const Dialogs = (props: DialogsTypeLesson43) => {
                           value={props.newMessageText}/>
 
                 <div>
-                    <button onClick={addMessage}>
+                    <button onClick={onAddMessage}>
                         Add post
                     </button>
                 </div>

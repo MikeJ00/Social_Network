@@ -11,22 +11,27 @@ let initialState = {
     ],
     newPostText: "It-incubator"
 }
-export const profileReducer = (state = initialState, action:RootActionProfileType):ProfileType => {
+export const profileReducer = (state = initialState, action: RootActionProfileType): ProfileType => {
     debugger
     switch (action.type) {
-        case ADD_POST:
+        case ADD_POST: {
             let newPost = {
                 id: "4",
                 message: state.newPostText,
                 likesCount: 2
             }
-            state.postsData.push(newPost);
-            state.newPostText = ""
-            return state
-        case UPDATE_NEW_POST_TEXT:
+            let copyState = {...state}
+            copyState.postsData = [...state.postsData]
+            copyState.postsData.push(newPost);
+            copyState.newPostText = ""
+            return copyState
+        }
+        case UPDATE_NEW_POST_TEXT: {
+            let copyState = {...state}
             debugger
-            state.newPostText = action.newText;
-            return state
+            copyState.newPostText = action.newText;
+            return copyState
+        }
         default:
             return state
     }

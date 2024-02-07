@@ -28,7 +28,7 @@ export type DialogsTypeLesson43 = {
     messagesData: Array<MessagesDataType>
     newMessageText: string
     changeNewMessageTextCb: (text: string) => void
-    onAddMessage: (newMessageText: string) => void
+    addMessage: (newMessageText: string) => void
 }
 export type mapDispatchToPropsType = {
     changeNewMessageTextCb: (text: string) => void
@@ -37,8 +37,8 @@ export type mapDispatchToPropsType = {
 export type MyPostsTypeLesson43 = {
     postsData: Array<PostsDataType>
     newPostText: string
-    changeNewTextCallBack: (text: string) => void
-    onAddPost: (newPostText: string) => void
+    PostChange: (text: string) => void
+    addPost: (newPostText: string) => void
 }
 export type ProfileType = {
     postsData: Array<PostsDataType>

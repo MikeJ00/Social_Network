@@ -11,10 +11,10 @@ export const MyPosts = (props: MyPostsTypeLesson43) => {
 
     const onClickAddPost = () => {
         debugger
-        props.onAddPost(props.newPostText)
+        props.addPost(props.newPostText)
     }
     const onPostChange = (e:ChangeEvent<HTMLTextAreaElement>) => {
-            props.changeNewTextCallBack(e.currentTarget.value)
+            props.PostChange(e.currentTarget.value)
         }
 
     return <div className={s.postsBlock}>

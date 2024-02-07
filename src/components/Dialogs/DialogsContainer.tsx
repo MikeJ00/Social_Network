@@ -30,7 +30,7 @@ let mapStateToProps = (state: MainStateType) => {
 }
 let mapDispatchToProps = (dispatch: any) => {
     return {
-        onMessageChange: (text: string) => {
+        changeNewMessageTextCb: (text: string) => {
             dispatch(updateNewMessageTextAC(text))
         },
         addMessage: () => {

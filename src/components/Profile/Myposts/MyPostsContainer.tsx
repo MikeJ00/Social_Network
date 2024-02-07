@@ -30,7 +30,7 @@ let mapStatePostsToProps = (state: MainStateType) => {
 }
 let mapDispatchPostsToProps = (dispatch: any) => {
     return {
-        onPostChange: (text: string) => {
+        PostChange: (text: string) => {
             dispatch(updateNewPostTextAC(text))
         },
         addPost: () => {
