@@ -16,19 +16,18 @@ export const profileReducer = (state = initialState, action: RootActionProfileTy
     switch (action.type) {
         case ADD_POST: {
             let newPost = {
-                id: "4",
+                id: state.postsData.length+1,
                 message: state.newPostText,
                 likesCount: 2
             }
-            let copyState = {...state}
-            copyState.postsData = [...state.postsData]
-            copyState.postsData.push(newPost);
-            copyState.newPostText = ""
-            return copyState
+            return {
+                ...state,
+                newPostText: "",
+                postsData: [...state.postsData, newPost]
+            }
         }
         case UPDATE_NEW_POST_TEXT: {
             let copyState = {...state}
-            debugger
             copyState.newPostText = action.newText;
             return copyState
         }

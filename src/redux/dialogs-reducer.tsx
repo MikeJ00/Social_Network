@@ -19,39 +19,34 @@ let initialState = {
     ],
     newMessageText: "New text you"
 };
-export const dialogsReducer = (state = initialState, action:RootActionDialogType):MainDialogsType => {
-
+export const dialogsReducer = (state = initialState, action: RootActionDialogType): MainDialogsType => {
     switch (action.type) {
-        case ADD_MESSAGE_POST: {
-            let newMessage = {
-                id: "5",
-                message: state.newMessageText
+        case ADD_MESSAGE_POST:
+            let message = state.newMessageText
+            return {
+                ...state,
+                newMessageText: "",
+                messagesData: [...state.messagesData, {id: state.messagesData.length+1 , message: message}]
             }
-            let copyState = {...state}
-            copyState.messagesData = [...state.messagesData]
-            copyState.messagesData.push(newMessage);
-            copyState.newMessageText = ""
-            return copyState
-        }
-        case UPDATE_NEW_MESSAGE_TEXT:{
-            let copyState = {...state}
-            copyState.newMessageText = action.newMessText;
-            return copyState
-        }
-
+            
+        case UPDATE_NEW_MESSAGE_TEXT:
+            return {
+                ...state,
+                newMessageText: action.newMessText
+            }
         default:
             return state
     }
 }
-export let addMessagePostAC = () =>{
-    return{
-        type:ADD_MESSAGE_POST
+export let addMessagePostAC = () => {
+    return {
+        type: ADD_MESSAGE_POST
     } as const
 }
-export let updateNewMessageTextAC = (newMessageText:string) =>{
-    return{
-        type:UPDATE_NEW_MESSAGE_TEXT,
-        newMessText:newMessageText
+export let updateNewMessageTextAC = (newMessageText: string) => {
+    return {
+        type: UPDATE_NEW_MESSAGE_TEXT,
+        newMessText: newMessageText
     } as const
 }
 export type RootActionDialogType = updateNewMessageTextActionType | addMessagePostActionType

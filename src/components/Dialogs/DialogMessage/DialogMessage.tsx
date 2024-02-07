@@ -3,7 +3,7 @@ import React from "react";
 
 type DialogMessagePropsType = {
     message: string
-    id: string
+    id: string | number
 }
 export const DialogMessage = (props: DialogMessagePropsType) => {
     return (

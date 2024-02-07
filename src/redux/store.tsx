@@ -46,7 +46,7 @@ export type ProfileType = {
     // addPost: (postMessages: string) => void
 }
 export type PostsDataType = {
-    id: string
+    id: string | number
     message: string
     likesCount: number
 
@@ -71,55 +71,55 @@ type DialogsDataType = {
     name: string
 }
 type MessagesDataType = {
-    id: string,
+    id: string | number
     message: string
 }
 export type RootStoreType = {
     store: RootStoreRedux
 }
-export let store = {
-    _state: {
-        profilePage: {
-            postsData: [
-                {id: "1", message: "Hi, how are you, man?", likesCount: 2},
-                {id: "2", message: "Okay", likesCount: 9},
-                {id: "3", message: "ZZZZZ", likesCount: 18},
-            ],
-            newPostText: "It-incubator"
-        },
-        dialogsPage: {
-            dialogsData: [
-                {id: "1", name: "Kostja"},
-                {id: "2", name: "Alexey"},
-                {id: "3", name: "Valera"},
-                {id: "4", name: "Oleg"},
-                {id: "5", name: "Petja"},
-            ],
-            messagesData: [
-                {id: "1", message: "Hello"},
-                {id: "2", message: "Welcome"},
-                {id: "3", message: "ZZZZZ"},
-                {id: "4", message: "How you day?"},
-            ],
-            newMessageText: "New text you"
-        }
-    },
-    _callSubscriber(state: any) {
-        console.log("state was changed")
-    },
-    getState() {
-        debugger
-        return this._state
-    },
-    subscribe(observer: any) {
-        this._callSubscriber = observer;
-    },
-    dispatch(action: any) {
-        this._state.profilePage = profileReducer(this._state.profilePage, action);
-        this._state.dialogsPage = dialogsReducer(this._state.dialogsPage, action);
-        this._callSubscriber(this._state)
-    }
-}
+// export let store = {
+//     _state: {
+//         profilePage: {
+//             postsData: [
+//                 {id: "1", message: "Hi, how are you, man?", likesCount: 2},
+//                 {id: "2", message: "Okay", likesCount: 9},
+//                 {id: "3", message: "ZZZZZ", likesCount: 18},
+//             ],
+//             newPostText: "It-incubator"
+//         },
+//         dialogsPage: {
+//             dialogsData: [
+//                 {id: "1", name: "Kostja"},
+//                 {id: "2", name: "Alexey"},
+//                 {id: "3", name: "Valera"},
+//                 {id: "4", name: "Oleg"},
+//                 {id: "5", name: "Petja"},
+//             ],
+//             messagesData: [
+//                 {id: "1", message: "Hello"},
+//                 {id: "2", message: "Welcome"},
+//                 {id: "3", message: "ZZZZZ"},
+//                 {id: "4", message: "How you day?"},
+//             ],
+//             newMessageText: "New text you"
+//         }
+//     },
+//     _callSubscriber(state: any) {
+//         console.log("state was changed")
+//     },
+//     getState() {
+//         debugger
+//         return this._state
+//     },
+//     subscribe(observer: any) {
+//         this._callSubscriber = observer;
+//     },
+//     dispatch(action: any) {
+//         this._state.profilePage = profileReducer(this._state.profilePage, action);
+//         this._state.dialogsPage = dialogsReducer(this._state.dialogsPage, action);
+//         this._callSubscriber(this._state)
+//     }
+// }
 
 
 

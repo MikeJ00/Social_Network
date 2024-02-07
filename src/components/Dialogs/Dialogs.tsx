@@ -6,12 +6,13 @@ import {DialogsTypeLesson43,} from "../../redux/store";
 
 
 export const Dialogs = (props: DialogsTypeLesson43) => {
-    let dialogsElements = props.dialogsData.map(
-        (el) => <DialogItem name={el.name} id={el.id}/>)
-    let messagesElements = props.messagesData.map(
-        (el) => <DialogMessage message={el.message} id={el.id}/>
-    )
 
+    let dialogsElements = props.dialogsData.map(
+        (el) => <DialogItem name={el.name} id={el.id} key={el.id}/>)
+    let messagesElements = props.messagesData.map(
+        (el) => <DialogMessage message={el.message} id={el.id} key={el.id}/>
+    )
+    console.log(messagesElements)
     const onMessageChange = (e: ChangeEvent<HTMLTextAreaElement>) => {
         props.changeNewMessageTextCb(e.currentTarget.value)
     }

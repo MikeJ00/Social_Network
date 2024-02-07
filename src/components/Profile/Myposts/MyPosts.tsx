@@ -6,7 +6,7 @@ import {MyPostsTypeLesson43} from "../../../redux/store";
 
 export const MyPosts = (props: MyPostsTypeLesson43) => {
     let postsElement = props.postsData.map(
-        (el) => <Post message={el.message} likeCount={el.likesCount} id={el.id}/>
+        (el) => <Post message={el.message} likeCount={el.likesCount} id={el.id} key={el.id}/>
     )
 
     const onClickAddPost = () => {
