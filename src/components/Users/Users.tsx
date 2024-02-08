@@ -1,6 +1,9 @@
 import React from 'react';
 import styles from './user.module.css'
 import {UsersType} from "../../redux/users-reducer";
+import axios from "axios";
+import userPhoto from "../../assets/images/user.png"
+
 
 type RootUsersTypeForComponent = {
     users: UsersType[],
@@ -8,26 +11,16 @@ type RootUsersTypeForComponent = {
     unFollowClick: (userId: number) => void,
     setUsers: (users: UsersType[]) => void
 }
-
+let baseUrl = "https://social-network.samuraijs.com/api/1.0"
 export const Users = (props: RootUsersTypeForComponent) => {
-    // if(props.users.length === 0){
-    //     props.setUsers([
-    //         {
-    //             id: 1, photoPics:'https://giftesx.bigo.sg/live/4ha/0MIxpG.jpg',
-    //             followed: true, fullName: "Gena", status: "I'm looking job now",
-    //             location: {city: "Minks", country: "Belarus"}
-    //         },
-    //         {
-    //             id: 2, photoPics:'https://giftesx.bigo.sg/live/4ha/0MIxpG.jpg',
-    //             followed: false, fullName: "Vova", status: "What",
-    //             location: {city: "Moscow", country: "Russia"}
-    //         },
-    //         {
-    //             id: 3, followed: false, fullName: "Vlad", status: "Lorem lorem ssssssssss",
-    //             location: {city: "Kiev", country: "Ukraine"}
-    //         },
-    //     ])
-    // }
+    if(props.users.length === 0){
+        axios.get("https://social-network.samuraijs.com/api/1.0/users")
+            .then(res =>{
+                debugger
+                props.setUsers(res.data.items);
+            }
+        );
+    }
 
     // const onFollowClick = (id:number) => {
     //     props.followClick
@@ -42,7 +35,7 @@ export const Users = (props: RootUsersTypeForComponent) => {
             {props.users.map(u => <div key={u.id}>
                 <span>
                     <div>
-                    <img alt={"photo will be upload soon"} src={u.photoPics} className={styles.userPhoto}/>
+                    <img alt={"photo will be upload soon"} src={u.photos.small != null ? u.photos.small : userPhoto} className={styles.userPhoto}/>
                 </div>
                     <div>
                         {u.followed ? <button onClick={()=>{props.followClick(u.id)}}>Follow</button> :
@@ -51,12 +44,12 @@ export const Users = (props: RootUsersTypeForComponent) => {
                 </span>
                 <span>
                     <span>
-                        <div>{u.fullName}</div>
+                        <div>{u.name}</div>
                         <div>{u.status}</div>
                     </span>
                     <span>
-                        <div>{u.location.country}</div>
-                        <div>{u.location.city}</div>
+                        <div>{"u.location.country"}</div>
+                        <div>{"u.location.city"}</div>
                     </span>
                 </span>
             </div>)}
