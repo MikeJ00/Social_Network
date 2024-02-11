@@ -1,26 +1,40 @@
 import React from 'react';
-import {addPostAC, updateNewPostTextAC} from "../../redux/profile-reducer";
 import {connect} from "react-redux";
-import {followAC, RootUsersType, setUsersAC, unfollowAC, UsersType} from "../../redux/users-reducer";
-import {Users} from "./Users";
+import {
+    followAC,
+    setCurrentPageAC,
+    setTotalUsersCountAC,
+    setUsersAC,
+    unfollowAC,
+    UsersType
+} from "../../redux/users-reducer";
 import {RootStateRedux} from "../../redux/redux-store";
 import {UsersClass} from "./UsersClass";
 
 let mapStateUsersToProps = (state: RootStateRedux) => {
     return {
-        users: state.users.users
+        users: state.users.users,
+        pageSize: state.users.pageSize,
+        totalUsersCount: state.users.totalUsersCount,
+        currentPage: state.users.currentPage
     }
 }
 let mapDispatchPostsToProps = (dispatch: any) => {
     return {
-        followClick: (userId:number) => {
+        followClick: (userId: number) => {
             dispatch(followAC(userId))
         },
-        unFollowClick: (userId:number) => {
+        unFollowClick: (userId: number) => {
             dispatch(unfollowAC(userId))
         },
-        setUsers: (users:UsersType[])=>{
+        setUsers: (users: UsersType[]) => {
             dispatch(setUsersAC(users))
+        },
+        setCurrentPage:(currentPage:number) =>{
+            dispatch(setCurrentPageAC(currentPage))
+        },
+        setTotalUsersCount:(totalCount:number) =>{
+            dispatch(setTotalUsersCountAC(totalCount))
         }
     }
 }

@@ -9,33 +9,46 @@ type RootUsersTypeForComponent = {
     followClick: (userId: number) => void,
     unFollowClick: (userId: number) => void,
     setUsers: (users: UsersType[]) => void
+    pageSize:number
+    totalUsersCount:number
+    currentPage:number
+    setCurrentPage:(currentPage: number) => void
+    setTotalUsersCount:(totalUsersCount:number) => void
 }
-export class UsersClass extends React.Component<RootUsersTypeForComponent, any>{
-    constructor(props:RootUsersTypeForComponent) {
-        super(props);
+export class UsersClass extends React.Component<RootUsersTypeForComponent, any> {
+    componentDidMount() {
         alert("new obj")
-            axios.get("https://social-network.samuraijs.com/api/1.0/users")
-                .then(res => {
-                        debugger
-                        this.props.setUsers(res.data.items);
-                    }
-                );
+        axios.get(`https://social-network.samuraijs.com/api/1.0/users?page=${this.props.currentPage}&count=${this.props.totalUsersCount}`)
+            .then(res => {
+                    debugger
+                    this.props.setUsers(res.data.items);
+                    this.props.setTotalUsersCount(res.data.totalCount/200);
+                });
     }
-    // getUsers = () =>{
-    //     debugger
-    //     if (this.props.users.length === 0) {
-    //         axios.get("https://social-network.samuraijs.com/api/1.0/users")
-    //             .then(res => {
-    //                     debugger
-    //                     this.props.setUsers(res.data.items);
-    //                 }
-    //             );
-    //     }
-    // }
-    render(){
+    onPageClickChanged = (pageNumber:number) => {
+        this.props.setCurrentPage(pageNumber)
+        axios.get(`https://social-network.samuraijs.com/api/1.0/users?page=${pageNumber}&count=${this.props.totalUsersCount}`)
+            .then(res => {
+                debugger
+                this.props.setUsers(res.data.items);
+            });
+    }
+
+    render() {
+        let pagesCount = Math.ceil(this.props.totalUsersCount / this.props.pageSize);
+        let pages = [];
+        for (let i= 1; i <= pagesCount; i++){
+            pages.push(i)
+        }
         return (
             <div>
-                {/*<button onClick={this.getUsers}>Get Users</button>*/}
+                <div>
+                    {pages.map(p=>{
+                        return <span className={this.props.currentPage === p  ? styles.selectedPage : undefined}
+                                     // className={condition ? value : undefined}
+                        onClick={(e:any)=>{this.onPageClickChanged(p)}}>{p}</span>
+                    })}
+                </div>
                 {this.props.users.map(u => <div key={u.id}>
                 <span>
                     <div>
