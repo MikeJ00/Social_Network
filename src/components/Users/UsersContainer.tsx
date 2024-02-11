@@ -4,6 +4,7 @@ import {connect} from "react-redux";
 import {followAC, RootUsersType, setUsersAC, unfollowAC, UsersType} from "../../redux/users-reducer";
 import {Users} from "./Users";
 import {RootStateRedux} from "../../redux/redux-store";
+import {UsersClass} from "./UsersClass";
 
 let mapStateUsersToProps = (state: RootStateRedux) => {
     return {
@@ -23,4 +24,4 @@ let mapDispatchPostsToProps = (dispatch: any) => {
         }
     }
 }
-export const UsersContainer = connect(mapStateUsersToProps, mapDispatchPostsToProps)(Users);
+export const UsersContainer = connect(mapStateUsersToProps, mapDispatchPostsToProps)(UsersClass);
