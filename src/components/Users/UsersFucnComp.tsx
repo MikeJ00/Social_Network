@@ -12,7 +12,7 @@ type RootUsersTypeForComponent = {
     setUsers: (users: UsersType[]) => void
 }
 let baseUrl = "https://social-network.samuraijs.com/api/1.0"
-export const Users = (props: RootUsersTypeForComponent) => {
+export const UsersFucnComp = (props: RootUsersTypeForComponent) => {
     debugger
     let getUsers = () => {
         if (props.users.length === 0) {

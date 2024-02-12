@@ -3,6 +3,7 @@ export type RootUsersType = {
     pageSize: number
     totalUsersCount: number
     currentPage: number
+    isFetching: boolean
 }
 type photoType = {
     small?: string
@@ -20,11 +21,14 @@ type LocationType = {
     city: string
     country: string
 }
+
 const FOLLOW = "FOLLOW";
 const UNFOLLOW = "UNFOLLOW";
 const SET_USERS = "SET_USERS";
 const SET_CURRENT_PAGE = "SET_CURRENT_PAGE"
 const SET_TOTAL_COUNT = "SET_TOTAL_COUNT"
+const CHANGE_STATUS_FETCH = "CHANGE_STATUS_FETCH"
+
 let initialState: RootUsersType = {
     users: [
         //     {
@@ -44,7 +48,8 @@ let initialState: RootUsersType = {
     ],
     pageSize: 1,
     totalUsersCount: 5,
-    currentPage: 1
+    currentPage: 1,
+    isFetching: true
 }
 export const usersReducer = (state = initialState, action: RootActionProfileType) => {
     debugger
@@ -77,6 +82,11 @@ export const usersReducer = (state = initialState, action: RootActionProfileType
                 ...state, totalUsersCount: action.totalCount
             }
         }
+        case CHANGE_STATUS_FETCH:{
+            return {
+                ...state, isFetching: action.isFetching
+            }
+        }
         default:
             return state
     }
@@ -91,12 +101,16 @@ export let setCurrentPageAC = (currentPage: number) =>
     ({type: SET_CURRENT_PAGE, currentPage} as const)
 export let setTotalUsersCountAC = (totalCount: number) =>
     ({type: SET_TOTAL_COUNT, totalCount} as const)
+export let changeFetchStatusAC = (isFetching: boolean) =>
+    ({type: CHANGE_STATUS_FETCH, isFetching} as const)
 
 export type RootActionProfileType = followActionType | unFollowActionType |
     setUsersActionType | setCurrentPageActionType | setTotalUsersCountActionType
+    | changeFetchStatusActionType
 
 type followActionType = ReturnType<typeof followAC>
 type unFollowActionType = ReturnType<typeof unfollowAC>
 type setUsersActionType = ReturnType<typeof setUsersAC>
 type setCurrentPageActionType = ReturnType<typeof setCurrentPageAC>
 type setTotalUsersCountActionType = ReturnType<typeof setTotalUsersCountAC>
+type changeFetchStatusActionType = ReturnType<typeof changeFetchStatusAC>
