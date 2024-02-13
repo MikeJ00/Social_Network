@@ -6,6 +6,8 @@ import {Profile} from "./components/Profile/Profile";
 import {Route} from "react-router-dom";
 import {DialogsContainer} from "./components/Dialogs/DialogsContainer";
 import {UsersContainer} from "./components/Users/UsersContainer";
+import {ProfileContainer} from "./components/Profile/ProfileContainer";
+
 
 function App(props: any) {
     debugger
@@ -18,7 +20,7 @@ function App(props: any) {
                        render={() => <DialogsContainer
                        />}/>
                 <Route exact path='/profile'
-                       render={() => <Profile
+                       render={() => <ProfileContainer
                        />}/>
                 <Route exact path='/users'
                        render={() => <UsersContainer/>}/>

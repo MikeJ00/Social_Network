@@ -36,7 +36,7 @@ class UsersContainerClassComponent extends React.Component<RootUsersTypeForCompo
                 this.props.fetchStatus(false)
                 debugger
                 this.props.setUsers(res.data.items);
-                this.props.setTotalUsersCount(res.data.totalCount / 200);
+                this.props.setTotalUsersCount(res.data.totalCount / 300);
             });
     }
 

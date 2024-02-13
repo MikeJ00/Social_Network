@@ -20,6 +20,7 @@ export type MyPostsTypeLesson43 = {
 export type ProfileType = {
     postsData: Array<PostsDataType>
     newPostText: string
+    profile:null
     // addPost: (postMessages: string) => void
 }
 export type PostsDataType = {

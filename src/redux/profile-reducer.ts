@@ -3,13 +3,15 @@ import {ProfileType} from "./store";
 
 const ADD_POST = "ADD-POST";
 const UPDATE_NEW_POST_TEXT = "UPDATE-NEW-POST-TEXT";
+const SET_USER_PROFILE = "SET_USER_PROFILE"
 let initialState = {
     postsData: [
         {id: "1", message: "Hi, how are you, man?", likesCount: 2},
         {id: "2", message: "Okay", likesCount: 9},
         {id: "3", message: "ZZZZZ", likesCount: 18},
     ],
-    newPostText: "It-incubator"
+    newPostText: "It-incubator",
+    profile:null
 }
 export const profileReducer = (state = initialState, action: RootActionProfileType): ProfileType => {
     debugger
@@ -31,6 +33,8 @@ export const profileReducer = (state = initialState, action: RootActionProfileTy
             copyState.newPostText = action.newText;
             return copyState
         }
+        case SET_USER_PROFILE:{
+            return {...state, profile: action.profile}}
         default:
             return state
     }
@@ -38,8 +42,11 @@ export const profileReducer = (state = initialState, action: RootActionProfileTy
 export let addPostAC = () => ({type: ADD_POST} as const)
 export let updateNewPostTextAC = (text: string) =>
     ({type: UPDATE_NEW_POST_TEXT, newText: text} as const)
+export let setUserProfile = (profile: any) =>
+    ({type: SET_USER_PROFILE, profile} as const)
 
 // type MainActionType = typeof addPostAC | typeof updateNewPostTextAC
-export type RootActionProfileType = updateNewPostTextActionType | addPostActionType
+export type RootActionProfileType = updateNewPostTextActionType | addPostActionType | setUserProfileActionType
 type updateNewPostTextActionType = ReturnType<typeof updateNewPostTextAC>
 type addPostActionType = ReturnType<typeof addPostAC>
+type setUserProfileActionType = ReturnType<typeof setUserProfile>
