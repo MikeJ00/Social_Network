@@ -3,23 +3,24 @@ import styles from './user.module.css'
 import {UsersType} from "../../redux/users-reducer";
 import userPhoto from "../../assets/images/user.png"
 import {NavLink} from "react-router-dom";
+import axios from "axios";
 
 
 type RootUsersTypeForComponent = {
     users: UsersType[],
     followClick: (userId: number) => void
     unFollowClick: (userId: number) => void
-    pageSize:number
-    totalUsersCount:number
-    currentPage:number
-    onPageClickChanged:(pageNumber:number)=>void
+    pageSize: number
+    totalUsersCount: number
+    currentPage: number
+    onPageClickChanged: (pageNumber: number) => void
 }
 let baseUrl = "https://social-network.samuraijs.com/api/1.0"
 export const UsersFunc = (props: RootUsersTypeForComponent) => {
 
     let pagesCount = Math.ceil(props.totalUsersCount / props.pageSize);
     let pages = [];
-    for (let i= 1; i <= pagesCount; i++){
+    for (let i = 1; i <= pagesCount; i++) {
         pages.push(i)
     }
     return <div>
@@ -29,7 +30,7 @@ export const UsersFunc = (props: RootUsersTypeForComponent) => {
                     // className={condition ? value : undefined}
                              onClick={(e: any) => {
                                  props.onPageClickChanged(p)
-                             }}>{p }</span>
+                             }}>{p}</span>
             })}
         </div>
         {props.users.map(u => <div key={u.id}>
@@ -41,24 +42,43 @@ export const UsersFunc = (props: RootUsersTypeForComponent) => {
                             </NavLink>
                 </div>
                     <div>
-                        {u.followed ? <button onClick={() => {
-                                props.followClick(u.id)
-                            }}>Follow</button> :
-                            <button onClick={() => {
-                                props.unFollowClick(u.id)
-                            }}>Unfollow</button>}
-                    </div>
-                </span>
+                        {u.followed
+                            ? <button onClick={() => {
+                                axios.delete(`https://social-network.samuraijs.com/api/1.0/follow/${u.id}`,
+                                    {withCredentials: true})
+                                    .then(res => {
+                                        debugger
+                                        console.log(res.data)
+                                        if (res.data.resultCode === 0) {
+                                            props.unFollowClick(u.id)
+                                        }
+                                    });
+                            }}>Unfollow</button>
+                            : <button onClick={() => {
+                                axios.post(`https://social-network.samuraijs.com/api/1.0/follow/${u.id}`, {},
+                                    {withCredentials: true})
+                                    .then(res => {
+                                        debugger
+                                        console.log(res.data)
+                                        if (res.data.resultCode === 0) {
+                                            props.followClick(u.id)
+                                        }
+                                    });
+
+                            }}>Follow</button>
+                        }
+                            </div>
+                            </span>
             <span>
-                    <span>
-                        <div>{u.name}</div>
+                            <span>
+                            <div>{u.name}</div>
                         <div>{u.status}</div>
                     </span>
-                    <span>
+            <span>
                         <div>{"u.location.country"}</div>
                         <div>{"u.location.city"}</div>
                     </span>
-                </span>
+        </span>
         </div>)}
     </div>
 }

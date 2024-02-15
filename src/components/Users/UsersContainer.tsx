@@ -31,7 +31,8 @@ type RootUsersTypeForComponent = {
 class UsersContainerClassComponent extends React.Component<RootUsersTypeForComponent, any> {
     componentDidMount() {
         this.props.fetchStatus(true)
-        axios.get(`https://social-network.samuraijs.com/api/1.0/users?page=${this.props.currentPage}&count=${this.props.totalUsersCount}`)
+        axios.get(`https://social-network.samuraijs.com/api/1.0/users?page=${this.props.currentPage}&count=${this.props.totalUsersCount}`,
+            {withCredentials:true})
             .then(res => {
                 this.props.fetchStatus(false)
                 debugger
@@ -43,7 +44,8 @@ class UsersContainerClassComponent extends React.Component<RootUsersTypeForCompo
     onPageChanged = (pageNumber: number) => {
         this.props.setCurrentPage(pageNumber)
         this.props.fetchStatus(true)
-        axios.get(`https://social-network.samuraijs.com/api/1.0/users?page=${pageNumber}&count=${this.props.totalUsersCount}`)
+        axios.get(`https://social-network.samuraijs.com/api/1.0/users?page=${pageNumber}&count=${this.props.totalUsersCount}`,
+            {withCredentials:true})
             .then(res => {
                 this.props.fetchStatus(false)
                 debugger
@@ -68,7 +70,7 @@ class UsersContainerClassComponent extends React.Component<RootUsersTypeForCompo
     }
 }
 
-let mapStateUsersToProps = (state: RootStateRedux) => {
+let mapStateUsersToProps = (state: any) => {
     return {
         users: state.users.users,
         pageSize: state.users.pageSize,
