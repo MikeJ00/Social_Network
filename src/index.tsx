@@ -15,3 +15,5 @@ import {Provider} from "react-redux";
         </BrowserRouter>,
         document.getElementById('root')
     );
+
+    window.store = store

@@ -1,6 +1,4 @@
 import React from 'react';
-import {ProfileInfo} from "./ProfileInfo/ProfileInfo";
-import {MyPostsContainer} from "./Myposts/MyPostsContainer";
 import {Profile} from "./Profile";
 import axios from "axios";
 import {connect} from "react-redux";
@@ -55,7 +53,7 @@ class ProfileContainerClassComponent extends React.Component<RootType, any> {
         )
     }
 }
-let mapStateToProps = (state:RootStateRedux) =>({
+let mapStateToProps = (state:any) =>({
     profile: state.profilePage.profile
 })
 let withUrlDataContainerComponent = withRouter(ProfileContainerClassComponent);

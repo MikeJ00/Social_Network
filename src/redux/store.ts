@@ -1,4 +1,3 @@
-import {RootStoreRedux} from "./redux-store";
 export type MainStateType = {
     profilePage: ProfileType
     dialogsPage: MainDialogsType

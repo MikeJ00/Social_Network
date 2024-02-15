@@ -1,4 +1,3 @@
-import React from 'react';
 import {ProfileType} from "./store";
 
 const ADD_POST = "ADD-POST";
