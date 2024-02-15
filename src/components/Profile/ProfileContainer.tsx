@@ -6,12 +6,12 @@ import axios from "axios";
 import {connect} from "react-redux";
 import {setUserProfile} from "../../redux/profile-reducer";
 import {RootStateRedux} from "../../redux/redux-store";
+import {withRouter} from "react-router-dom";
 
 type RootType = {
     profile: RootProfileContainerType
     setUserProfile:(profile: any)=>void
 }
-
 export type RootProfileContainerType = {
     userId: number
     lookingForAJob: string
@@ -37,7 +37,12 @@ type PhotosType = {
 
 class ProfileContainerClassComponent extends React.Component<RootType, any> {
     componentDidMount() {
-        axios.get(`https://social-network.samuraijs.com/api/1.0/profile/30526`)
+        let userId = this.props.match.params.userId;
+        if(!userId) {
+            userId = 2;
+        }
+        debugger
+        axios.get(`https://social-network.samuraijs.com/api/1.0/profile/` + userId)
             .then(res=>{
                 this.props.setUserProfile(res.data)
                 debugger
@@ -53,5 +58,6 @@ class ProfileContainerClassComponent extends React.Component<RootType, any> {
 let mapStateToProps = (state:RootStateRedux) =>({
     profile: state.profilePage.profile
 })
+let withUrlDataContainerComponent = withRouter(ProfileContainerClassComponent);
 
-export const ProfileContainer =  connect(mapStateToProps, {setUserProfile})(ProfileContainerClassComponent)
+export const ProfileContainer =  connect(mapStateToProps, {setUserProfile})(withUrlDataContainerComponent)
