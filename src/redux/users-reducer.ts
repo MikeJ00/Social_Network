@@ -4,6 +4,7 @@ export type RootUsersType = {
     totalUsersCount: number
     currentPage: number
     isFetching: boolean
+    followingInProgress: []
 }
 type photoType = {
     small?: string
@@ -28,28 +29,15 @@ const SET_USERS = "SET_USERS";
 const SET_CURRENT_PAGE = "SET_CURRENT_PAGE"
 const SET_TOTAL_COUNT = "SET_TOTAL_COUNT"
 const CHANGE_STATUS_FETCH = "CHANGE_STATUS_FETCH"
+const TOGGLE_IS_FOLLOWING_PROGRESS = "TOGGLE_IS_FOLLOWING_PROGRESS"
 
 let initialState: RootUsersType = {
-    users: [
-        //     {
-        //         id: 1, photoPics:'https://giftesx.bigo.sg/live/4ha/0MIxpG.jpg',
-        //         followed: true, fullName: "Gena", status: "I'm looking job now",
-        //         location: {city: "Minks", country: "Belarus"}
-        //     },
-        //     {
-        //         id: 2, photoPics:'https://giftesx.bigo.sg/live/4ha/0MIxpG.jpg',
-        //         followed: false, fullName: "Vova", status: "What",
-        //         location: {city: "Moscow", country: "Russia"}
-        //     },
-        //     {
-        //         id: 3, followed: false, fullName: "Vlad", status: "Lorem lorem ssssssssss",
-        //         location: {city: "Kiev", country: "Ukraine"}
-        //     },
-    ],
+    users: [],
     pageSize: 1,
     totalUsersCount: 5,
     currentPage: 1,
-    isFetching: true
+    isFetching: true,
+    followingInProgress: []
 }
 export const usersReducer = (state = initialState, action: RootActionProfileType) => {
     debugger
@@ -82,9 +70,17 @@ export const usersReducer = (state = initialState, action: RootActionProfileType
                 ...state, totalUsersCount: action.totalCount
             }
         }
-        case CHANGE_STATUS_FETCH:{
+        case CHANGE_STATUS_FETCH: {
             return {
                 ...state, isFetching: action.isFetching
+            }
+        }
+        case TOGGLE_IS_FOLLOWING_PROGRESS: {
+            return {
+                ...state,
+                followingInProgress: action.followingInProgress
+                    ? [...state.followingInProgress, action.userId]
+                    : [state.followingInProgress.filter(id => id != action.userId)]
             }
         }
         default:
@@ -103,10 +99,12 @@ export let setTotalUsersCountAC = (totalCount: number) =>
     ({type: SET_TOTAL_COUNT, totalCount} as const)
 export let changeFetchStatusAC = (isFetching: boolean) =>
     ({type: CHANGE_STATUS_FETCH, isFetching} as const)
+export let changeToggleProgressAC = (followingInProgress: boolean, userId:number) =>
+    ({type: TOGGLE_IS_FOLLOWING_PROGRESS, followingInProgress, userId} as const)
 
 export type RootActionProfileType = followActionType | unFollowActionType |
     setUsersActionType | setCurrentPageActionType | setTotalUsersCountActionType
-    | changeFetchStatusActionType
+    | changeFetchStatusActionType | changeToggleProgressActionType
 
 type followActionType = ReturnType<typeof followAC>
 type unFollowActionType = ReturnType<typeof unfollowAC>
@@ -114,3 +112,4 @@ type setUsersActionType = ReturnType<typeof setUsersAC>
 type setCurrentPageActionType = ReturnType<typeof setCurrentPageAC>
 type setTotalUsersCountActionType = ReturnType<typeof setTotalUsersCountAC>
 type changeFetchStatusActionType = ReturnType<typeof changeFetchStatusAC>
+type changeToggleProgressActionType = ReturnType<typeof changeToggleProgressAC>

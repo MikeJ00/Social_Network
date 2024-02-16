@@ -5,10 +5,11 @@ import {connect} from "react-redux";
 import {setUserProfile} from "../../redux/profile-reducer";
 import {RootStateRedux} from "../../redux/redux-store";
 import {withRouter} from "react-router-dom";
+import {userAPI} from "../../api/api";
 
 type RootType = {
     profile: RootProfileContainerType
-    setUserProfile:(profile: any)=>void
+    setUserProfile: (profile: any) => void
 }
 export type RootProfileContainerType = {
     userId: number
@@ -36,26 +37,34 @@ type PhotosType = {
 class ProfileContainerClassComponent extends React.Component<RootType, any> {
     componentDidMount() {
         let userId = this.props.match.params.userId;
-        if(!userId) {
+        if (!userId) {
             userId = 2;
         }
         debugger
-        axios.get(`https://social-network.samuraijs.com/api/1.0/profile/` + userId)
-            .then(res=>{
-                this.props.setUserProfile(res.data)
-                debugger
-                console.log(res.data)
-            })
+        userAPI.setUsersProfile(userId).then(res => {
+            console.log(res)
+            this.props.setUserProfile(res.data)
+            console.log(res.data)
+        })
     }
 
+    // axios.get(`https://social-network.samuraijs.com/api/1.0/profile/` + userId)
+    //     .then(res=>{
+    //         this.props.setUserProfile(res.data)
+    //         debugger
+    //         console.log(res.data)
+    //         })
+    // }
+
     render() {
-        return ( <Profile {...this.props} profile={this.props.profile}/>
+        return (<Profile {...this.props} profile={this.props.profile}/>
         )
     }
 }
-let mapStateToProps = (state:any) =>({
+
+let mapStateToProps = (state: any) => ({
     profile: state.profilePage.profile
 })
 let withUrlDataContainerComponent = withRouter(ProfileContainerClassComponent);
 
-export const ProfileContainer =  connect(mapStateToProps, {setUserProfile})(withUrlDataContainerComponent)
+export const ProfileContainer = connect(mapStateToProps, {setUserProfile})(withUrlDataContainerComponent)
