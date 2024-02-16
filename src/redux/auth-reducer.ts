@@ -1,3 +1,4 @@
+import {authAPI} from "../api/api";
 
 type AuthReducerType = {
     id: null | string
@@ -6,7 +7,7 @@ type AuthReducerType = {
     isAuth: boolean
 }
 type RootAuthType = {
-    data:AuthReducerType
+    data: AuthReducerType
 }
 const SET_USER_DATA = "SET_USER_DATA";
 
@@ -31,8 +32,17 @@ export const authReducer = (state = initialState, action: RootActionAuthType) =>
             return state
     }
 }
-export const setAuthUserDataAC = (id:string, email:string, login:string) =>
-    ({type: SET_USER_DATA, data:{id, email, login}} as const)
+export const getAuthUserDataTC = () => (dispatch: any) => {
+    authAPI.authMe().then(res => {
+        debugger
+        if (res.data.resultCode === 0) {
+            let {id, email, login} = res.data.data
+            dispatch(setAuthUserDataAC(id, email, login))
+        }
+    });
+}
+export const setAuthUserDataAC = (id: string, email: string, login: string) =>
+    ({type: SET_USER_DATA, data: {id, email, login}} as const)
 
 export type RootActionAuthType = setUserDataActionType
 

@@ -10,7 +10,6 @@ type RootUsersTypeForComponent = {
     totalUsersCount: number
     currentPage: number
     isFetching: boolean
-    updateToggle: (followingInProgress: boolean, userId: number) => void
     followingInProgress: []
     getUsers: (currentPage: number, totalUsersCount: number) => void
     successFollow: (userId: number) => void
@@ -41,11 +40,11 @@ class UsersContainerClassComponent extends React.Component<RootUsersTypeForCompo
             {this.props.isFetching ?
                 <Preloader/> : null}
             <UsersFunc
-                totalUsersCount={this.props.totalUsersCount}
+                users={this.props.users}
                 pageSize={this.props.pageSize}
+                totalUsersCount={this.props.totalUsersCount}
                 currentPage={this.props.currentPage}
                 onPageClickChanged={this.onPageChanged}
-                users={this.props.users}
                 followingInProgress={this.props.followingInProgress}
                 successFollow={this.props.successFollow}
                 successUnFollow={this.props.successUnFollow}

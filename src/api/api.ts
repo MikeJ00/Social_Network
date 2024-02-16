@@ -23,18 +23,20 @@ export const userAPI = {
                 return res
             })
     },
-    authMe() {
-        return instance.get(`auth/me`)
-            .then(res => {
-                return res.data
-            })
-    },
     deleteFollow(id: number) {
         return instance.delete(`follow/${id}`)
     },
     addFollow(id: number) {
         return instance.post(`follow/${id}`)
     }
+}
+export const authAPI = {
+    authMe() {
+        return instance.get(`auth/me`)
+            .then(res => {
+                return res
+            })
+    },
 }
 
 // axios.delete(`https://social-network.samuraijs.com/api/1.0/follow/${u.id}`,

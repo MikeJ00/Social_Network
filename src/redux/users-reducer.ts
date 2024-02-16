@@ -138,8 +138,10 @@ export const followTC = (userId: number) => (dispatch: any) => {
     });
 }
 export const unFollowTC = (userId: number) => (dispatch: any) => {
+    debugger
     dispatch(changeToggleProgressAC(true, userId))
     userAPI.deleteFollow(userId).then(res => {
+        debugger
         if (res.data.resultCode === 0) {
             dispatch(unfollowAC(userId))
         }

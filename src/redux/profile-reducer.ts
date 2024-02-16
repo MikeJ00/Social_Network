@@ -1,4 +1,6 @@
 import {ProfileType} from "./store";
+import {userAPI} from "../api/api";
+import {changeToggleProgressAC, unfollowAC} from "./users-reducer";
 
 const ADD_POST = "ADD-POST";
 const UPDATE_NEW_POST_TEXT = "UPDATE-NEW-POST-TEXT";
@@ -41,11 +43,28 @@ export const profileReducer = (state = initialState, action: RootActionProfileTy
 export let addPostAC = () => ({type: ADD_POST} as const)
 export let updateNewPostTextAC = (text: string) =>
     ({type: UPDATE_NEW_POST_TEXT, newText: text} as const)
-export let setUserProfile = (profile: any) =>
+export let setUserProfileAC = (profile: any) =>
     ({type: SET_USER_PROFILE, profile} as const)
 
 // type MainActionType = typeof addPostAC | typeof updateNewPostTextAC
 export type RootActionProfileType = updateNewPostTextActionType | addPostActionType | setUserProfileActionType
 type updateNewPostTextActionType = ReturnType<typeof updateNewPostTextAC>
 type addPostActionType = ReturnType<typeof addPostAC>
-type setUserProfileActionType = ReturnType<typeof setUserProfile>
+type setUserProfileActionType = ReturnType<typeof setUserProfileAC>
+
+export const getUsersProfileTC = (userId: number) => (dispatch: any) => {
+    debugger
+    userAPI.setUsersProfile(userId).then(res => {
+        debugger
+        // if (res.data.resultCode === 0) {
+            dispatch(setUserProfileAC(res.data))
+            // dispatch(setUserProfileAC(userId))
+        // }
+    });
+}
+
+// debugger
+// userAPI.setUsersProfile(userId).then(res => {
+//     this.props.setUserProfile(res.data)
+// })
+// }
