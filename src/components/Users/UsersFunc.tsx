@@ -9,14 +9,13 @@ import {userAPI} from "../../api/api";
 
 type RootUsersTypeForComponent = {
     users: UsersType[],
-    followClick: (userId: number) => void
-    unFollowClick: (userId: number) => void
     pageSize: number
     totalUsersCount: number
     currentPage: number
     onPageClickChanged: (pageNumber: number) => void
-    updateToggle: (followingInProgress: boolean, userId:number) => void
-    followingInProgress:[]
+    followingInProgress: []
+    successFollow: (userId: number) => void
+    successUnFollow: (userId: number) => void
 }
 let baseUrl = "https://social-network.samuraijs.com/api/1.0"
 export const UsersFunc = (props: RootUsersTypeForComponent) => {
@@ -30,7 +29,6 @@ export const UsersFunc = (props: RootUsersTypeForComponent) => {
         <div>
             {pages.map(p => {
                 return <span key={p} className={props.currentPage === p ? styles.selectedPage : undefined}
-                    // className={condition ? value : undefined}
                              onClick={(e: any) => {
                                  props.onPageClickChanged(p)
                              }}>{p}</span>
@@ -46,44 +44,22 @@ export const UsersFunc = (props: RootUsersTypeForComponent) => {
                 </div>
                     <div>
                         {u.followed
-                            ? <button disabled={props.followingInProgress.some(id=>id===u.id)} onClick={() => {
-                                props.updateToggle(true, u.id)
-                                userAPI.deleteFollow(u.id).then(res => {
-                                    if (res.resultCode === 0) {
-                                        props.unFollowClick(u.id)
-                                    }
-                                    props.updateToggle(false,u.id)
-                                })
-                                // axios.delete(`https://social-network.samuraijs.com/api/1.0/follow/${u.id}`,
-                                //     {withCredentials: true})
-                                //     .then(res => {
-                                //         debugger
-                                //         console.log(res.data)
-                                //         if (res.data.resultCode === 0) {
-                                //             props.unFollowClick(u.id)
-                                //         }
-                                //     });
-                            }}>Unfollow</button>
-                            : <button disabled={props.followingInProgress.some(id=>id===u.id)} onClick={() => {
-                                debugger
-                                props.updateToggle(true,u.id)
-                                userAPI.addFollow(u.id).then(res=>{
-                                    if (res.resultCode === 0) {
-                                        props.followClick(u.id)
-                                    }
-                                    props.updateToggle(false,u.id)
-                                })
-                                // axios.post(`https://social-network.samuraijs.com/api/1.0/follow/${u.id}`, {},
-                                //     {withCredentials: true})
-                                //     .then(res => {
-                                //         debugger
-                                //         console.log(res.data)
-                                //         if (res.data.resultCode === 0) {
-                                //             props.followClick(u.id)
-                                //         }
-                                //     });
-
-                            }}>Follow</button>
+                            ? <button disabled={props.followingInProgress.some(id => id === u.id)}
+                                      onClick={() => {
+                                          props.successUnFollow(u.id)
+                                      }}>Unfollow</button>
+                            : <button disabled={props.followingInProgress.some(id => id === u.id)}
+                                      onClick={() => {
+                                          debugger
+                                          props.successFollow(u.id)
+                                          // props.updateToggle(true, u.id)
+                                          // userAPI.addFollow(u.id).then(res => {
+                                          //     if (res.data. resultCode === 0) {
+                                          //         props.followClick(u.id)
+                                          //     }
+                                          //     props.updateToggle(false, u.id)
+                                          // })
+                                      }}>Follow</button>
                         }
                             </div>
                             </span>

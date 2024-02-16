@@ -1,3 +1,6 @@
+import {userAPI} from "../api/api";
+import {Dispatch} from "redux";
+
 export type RootUsersType = {
     users: UsersType[]
     pageSize: number
@@ -99,7 +102,7 @@ export let setTotalUsersCountAC = (totalCount: number) =>
     ({type: SET_TOTAL_COUNT, totalCount} as const)
 export let changeFetchStatusAC = (isFetching: boolean) =>
     ({type: CHANGE_STATUS_FETCH, isFetching} as const)
-export let changeToggleProgressAC = (followingInProgress: boolean, userId:number) =>
+export let changeToggleProgressAC = (followingInProgress: boolean, userId: number) =>
     ({type: TOGGLE_IS_FOLLOWING_PROGRESS, followingInProgress, userId} as const)
 
 export type RootActionProfileType = followActionType | unFollowActionType |
@@ -113,3 +116,34 @@ type setCurrentPageActionType = ReturnType<typeof setCurrentPageAC>
 type setTotalUsersCountActionType = ReturnType<typeof setTotalUsersCountAC>
 type changeFetchStatusActionType = ReturnType<typeof changeFetchStatusAC>
 type changeToggleProgressActionType = ReturnType<typeof changeToggleProgressAC>
+
+export const getUsersTC = (currentPage: number, totalUsersCount: number) => (dispatch: any) => {
+    dispatch(setCurrentPageAC(currentPage))
+    dispatch(changeFetchStatusAC(true))
+    debugger
+    userAPI.getUsers(currentPage, totalUsersCount).then(res => {
+        dispatch(changeFetchStatusAC(false))
+        debugger
+        dispatch(setUsersAC(res.items))
+        dispatch(setTotalUsersCountAC((res.totalCount / 300)))
+    });
+}
+export const followTC = (userId: number) => (dispatch: any) => {
+    dispatch(changeToggleProgressAC(true, userId))
+    userAPI.addFollow(userId).then(res => {
+        if (res.data.resultCode === 0) {
+            dispatch(followAC(userId))
+        }
+        dispatch(changeToggleProgressAC(false, userId))
+    });
+}
+export const unFollowTC = (userId: number) => (dispatch: any) => {
+    dispatch(changeToggleProgressAC(true, userId))
+    userAPI.deleteFollow(userId).then(res => {
+        if (res.data.resultCode === 0) {
+            dispatch(unfollowAC(userId))
+        }
+        dispatch(changeToggleProgressAC(false, userId))
+    });
+}
+

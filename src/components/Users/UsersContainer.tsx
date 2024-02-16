@@ -1,58 +1,40 @@
 import React from 'react';
 import {connect} from "react-redux";
-import {
-    changeFetchStatusAC, changeToggleProgressAC,
-    followAC,
-    setCurrentPageAC,
-    setTotalUsersCountAC,
-    setUsersAC,
-    unfollowAC,
-    UsersType
-} from "../../redux/users-reducer";
+import {changeToggleProgressAC, followTC, getUsersTC, unFollowTC, UsersType} from "../../redux/users-reducer";
 import {UsersFunc} from "./UsersFunc";
 import {Preloader} from "../common/Preloader/Preloader";
-import {userAPI} from "../../api/api";
 
 type RootUsersTypeForComponent = {
     users: UsersType[],
-    followClick: (userId: number) => void,
-    unFollowClick: (userId: number) => void,
-    setUsers: (users: UsersType[]) => void
     pageSize: number
     totalUsersCount: number
     currentPage: number
-    setCurrentPage: (currentPage: number) => void
-    setTotalUsersCount: (totalUsersCount: number) => void
-    fetchStatus: (isFetching: boolean) => void
     isFetching: boolean
-    updateToggle: (followingInProgress: boolean, userId:number) => void
-    followingInProgress:[]
+    updateToggle: (followingInProgress: boolean, userId: number) => void
+    followingInProgress: []
+    getUsers: (currentPage: number, totalUsersCount: number) => void
+    successFollow: (userId: number) => void
+    successUnFollow: (userId: number) => void
 }
 
 class UsersContainerClassComponent extends React.Component<RootUsersTypeForComponent, any> {
     componentDidMount() {
-        this.props.fetchStatus(true)
-        // axios.get(`https://social-network.samuraijs.com/api/1.0/users?page=${this.props.currentPage}&count=${this.props.totalUsersCount}`,
-        //     {withCredentials:true})
-        userAPI.getUsers(this.props.currentPage, this.props.totalUsersCount).then(res => {
-            this.props.fetchStatus(false)
-            debugger
-            this.props.setUsers(res.items);
-            this.props.setTotalUsersCount(res.totalCount / 300);
-        });
+        debugger
+        this.props.getUsers(this.props.currentPage, this.props.totalUsersCount)
     }
 
     onPageChanged = (pageNumber: number) => {
-        this.props.setCurrentPage(pageNumber)
-        this.props.fetchStatus(true)
-        // axios.get(`https://social-network.samuraijs.com/api/1.0/users?page=${pageNumber}&count=${this.props.totalUsersCount}`,
-        //     {withCredentials: true})
-        userAPI.getUsers(pageNumber, this.props.totalUsersCount).then(res => {
-            this.props.fetchStatus(false)
-            debugger
-            this.props.setUsers(res.items);
-        });
+        this.props.getUsers(pageNumber, this.props.totalUsersCount)
     }
+//     this.props.fetchStatus(true)
+//     // axios.get(`https://social-network.samuraijs.com/api/1.0/users?page=${this.props.currentPage}&count=${this.props.totalUsersCount}`,
+//     //     {withCredentials:true})
+//     userAPI.getUsers(this.props.currentPage, this.props.totalUsersCount).then(res => {
+//     this.props.fetchStatus(false)
+//     debugger
+//     this.props.setUsers(res.items);
+//     this.props.setTotalUsersCount(res.totalCount / 300);
+// });
 
     render() {
         return <>
@@ -64,10 +46,9 @@ class UsersContainerClassComponent extends React.Component<RootUsersTypeForCompo
                 currentPage={this.props.currentPage}
                 onPageClickChanged={this.onPageChanged}
                 users={this.props.users}
-                followClick={this.props.followClick}
-                unFollowClick={this.props.unFollowClick}
-                updateToggle={this.props.updateToggle}
                 followingInProgress={this.props.followingInProgress}
+                successFollow={this.props.successFollow}
+                successUnFollow={this.props.successUnFollow}
             />
         </>
     }
@@ -85,26 +66,14 @@ let mapStateUsersToProps = (state: any) => {
 }
 let mapDispatchPostsToProps = (dispatch: any) => {
     return {
-        followClick: (userId: number) => {
-            dispatch(followAC(userId))
+        getUsers: (currentPage: number, totalUsersCount: number) => {
+            dispatch(getUsersTC(currentPage, totalUsersCount))
         },
-        unFollowClick: (userId: number) => {
-            dispatch(unfollowAC(userId))
+        successFollow: (userId: number) => {
+            dispatch(followTC(userId))
         },
-        setUsers: (users: UsersType[]) => {
-            dispatch(setUsersAC(users))
-        },
-        setCurrentPage: (currentPage: number) => {
-            dispatch(setCurrentPageAC(currentPage))
-        },
-        setTotalUsersCount: (totalCount: number) => {
-            dispatch(setTotalUsersCountAC(totalCount))
-        },
-        fetchStatus: (isFetching: boolean) => {
-            dispatch(changeFetchStatusAC(isFetching))
-        },
-        updateToggle: (followingInProgress: boolean, userId:number) => {
-            dispatch(changeToggleProgressAC(followingInProgress, userId))
+        successUnFollow: (userId: number) => {
+            dispatch(unFollowTC(userId))
         }
     }
 }
