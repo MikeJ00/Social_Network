@@ -3,6 +3,7 @@ import s from './Dialogs.module.css'
 import {DialogItem} from "./DialogItem/DialogItem";
 import {DialogMessage} from "./DialogMessage/DialogMessage";
 import {DialogsTypeLesson43,} from "../../redux/store";
+import {Redirect} from "react-router-dom";
 
 
 export const Dialogs = (props: DialogsTypeLesson43) => {
@@ -18,6 +19,9 @@ export const Dialogs = (props: DialogsTypeLesson43) => {
     }
     const onAddMessage = () => {
         props.addMessage(props.newMessageText)
+    }
+    if(!props.isAuth){
+        return <Redirect to={"/login"}/>
     }
 
     return (

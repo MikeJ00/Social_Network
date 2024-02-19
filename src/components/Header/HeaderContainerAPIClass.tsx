@@ -13,8 +13,8 @@ class HeaderContainerAPIClass extends React.Component<HeaderContainerType, any> 
         this.props.getAuthUserDataTC()
         // authAPI.authMe().then(res => {
         //     if (res.resultCode === 0) {
-        //         let {id, email, login} = res.data
-        //         this.props.setAuthUserDataAC(id, email, login)
+        //         let {id, email, Login} = res.data
+        //         this.props.setAuthUserDataAC(id, email, Login)
         //     }
         // })
     }
@@ -26,8 +26,8 @@ class HeaderContainerAPIClass extends React.Component<HeaderContainerType, any> 
 //     debugger
 //     console.log(res.data)
 //     if (res.data.resultCode === 0) {
-//         let {id, email, login} = res.data.data
-//         this.props.setAuthUserDataAC(id, email, login)
+//         let {id, email, Login} = res.data.data
+//         this.props.setAuthUserDataAC(id, email, Login)
 //     }
 // })
 

@@ -3,6 +3,7 @@ import {connect} from "react-redux";
 import {changeToggleProgressAC, followTC, getUsersTC, unFollowTC, UsersType} from "../../redux/users-reducer";
 import {UsersFunc} from "./UsersFunc";
 import {Preloader} from "../common/Preloader/Preloader";
+import {Redirect} from "react-router-dom";
 
 type RootUsersTypeForComponent = {
     users: UsersType[],
@@ -14,6 +15,7 @@ type RootUsersTypeForComponent = {
     getUsers: (currentPage: number, totalUsersCount: number) => void
     successFollow: (userId: number) => void
     successUnFollow: (userId: number) => void
+    isAuth:boolean
 }
 
 class UsersContainerClassComponent extends React.Component<RootUsersTypeForComponent, any> {
@@ -36,6 +38,7 @@ class UsersContainerClassComponent extends React.Component<RootUsersTypeForCompo
 // });
 
     render() {
+        if(!this.props.isAuth) return <Redirect to={"login"}/>
         return <>
             {this.props.isFetching ?
                 <Preloader/> : null}
@@ -60,7 +63,8 @@ let mapStateUsersToProps = (state: any) => {
         totalUsersCount: state.users.totalUsersCount,
         currentPage: state.users.currentPage,
         isFetching: state.users.isFetching,
-        followingInProgress: state.users.followingInProgress
+        followingInProgress: state.users.followingInProgress,
+        isAuth: state.auth.isAuth
     }
 }
 let mapDispatchPostsToProps = (dispatch: any) => {

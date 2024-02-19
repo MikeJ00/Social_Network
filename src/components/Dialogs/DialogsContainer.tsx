@@ -22,10 +22,12 @@ import {MainStateType} from "../../redux/store";
 //     )
 // }
 let mapStateToProps = (state: MainStateType) => {
+    debugger
     return {
         dialogsData: state.dialogsPage.dialogsData,
         messagesData: state.dialogsPage.messagesData,
-        newMessageText: state.dialogsPage.newMessageText
+        newMessageText: state.dialogsPage.newMessageText,
+        isAuth: state.auth.isAuth
     }
 }
 let mapDispatchToProps = (dispatch: any) => {

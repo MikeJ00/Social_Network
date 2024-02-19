@@ -54,8 +54,8 @@ export const authAPI = {
 //         debugger
 //         console.log(res.data)
 //         if (res.data.resultCode === 0) {
-//             let {id, email, login} = res.data.data
-//             this.props.setAuthUserDataAC(id, email, login)
+//             let {id, email, Login} = res.data.data
+//             this.props.setAuthUserDataAC(id, email, Login)
 //         }
 //     })
 // }
