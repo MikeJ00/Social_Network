@@ -5,6 +5,7 @@ import {UsersFunc} from "./UsersFunc";
 import {Preloader} from "../common/Preloader/Preloader";
 import {Redirect} from "react-router-dom";
 import {AuthWithRedirect} from "../../hoc/AuthWithRedirect";
+import {compose} from "redux";
 
 type RootUsersTypeForComponent = {
     users: UsersType[],
@@ -73,4 +74,10 @@ let mapDispatchPostsToProps = (dispatch: any) => {
     }
 }
 // let withRedirect = AuthWithRedirect(UsersContainerClassComponent)
-export const UsersContainer = AuthWithRedirect(connect(mapStateUsersToProps, mapDispatchPostsToProps)(UsersContainerClassComponent));
+// export const UsersContainer = AuthWithRedirect(connect(mapStateUsersToProps, mapDispatchPostsToProps)(UsersContainerClassComponent));
+
+export const UsersContainer = compose(
+    connect(mapStateUsersToProps, mapDispatchPostsToProps),
+    AuthWithRedirect
+)
+(UsersContainerClassComponent)
