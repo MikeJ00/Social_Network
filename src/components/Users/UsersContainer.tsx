@@ -4,6 +4,7 @@ import {changeToggleProgressAC, followTC, getUsersTC, unFollowTC, UsersType} fro
 import {UsersFunc} from "./UsersFunc";
 import {Preloader} from "../common/Preloader/Preloader";
 import {Redirect} from "react-router-dom";
+import {AuthWithRedirect} from "../../hoc/AuthWithRedirect";
 
 type RootUsersTypeForComponent = {
     users: UsersType[],
@@ -27,15 +28,6 @@ class UsersContainerClassComponent extends React.Component<RootUsersTypeForCompo
     onPageChanged = (pageNumber: number) => {
         this.props.getUsers(pageNumber, this.props.totalUsersCount)
     }
-//     this.props.fetchStatus(true)
-//     // axios.get(`https://social-network.samuraijs.com/api/1.0/users?page=${this.props.currentPage}&count=${this.props.totalUsersCount}`,
-//     //     {withCredentials:true})
-//     userAPI.getUsers(this.props.currentPage, this.props.totalUsersCount).then(res => {
-//     this.props.fetchStatus(false)
-//     debugger
-//     this.props.setUsers(res.items);
-//     this.props.setTotalUsersCount(res.totalCount / 300);
-// });
 
     render() {
         if(!this.props.isAuth) return <Redirect to={"login"}/>
@@ -80,4 +72,5 @@ let mapDispatchPostsToProps = (dispatch: any) => {
         }
     }
 }
-export const UsersContainer = connect(mapStateUsersToProps, mapDispatchPostsToProps)(UsersContainerClassComponent);
+// let withRedirect = AuthWithRedirect(UsersContainerClassComponent)
+export const UsersContainer = AuthWithRedirect(connect(mapStateUsersToProps, mapDispatchPostsToProps)(UsersContainerClassComponent));

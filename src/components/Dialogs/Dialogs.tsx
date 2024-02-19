@@ -20,9 +20,9 @@ export const Dialogs = (props: DialogsTypeLesson43) => {
     const onAddMessage = () => {
         props.addMessage(props.newMessageText)
     }
-    if(!props.isAuth){
-        return <Redirect to={"/login"}/>
-    }
+    // if(!props.isAuth){
+    //     return <Redirect to={"/login"}/>
+    // }
 
     return (
         <div className={s.dialogs}>
