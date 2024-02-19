@@ -16,12 +16,8 @@ export const userAPI = {
             })
     },
     setUsersProfile(userId: number) {
-        debugger
-        return instance.get(`profile/` + userId)
-            .then(res => {
-                console.log(res.data)
-                return res
-            })
+        console.warn("Obsolute method.Please profileApi object")
+    return profileAPI.setUsersProfile(userId)
     },
     deleteFollow(id: number) {
         return instance.delete(`follow/${id}`)
@@ -30,6 +26,27 @@ export const userAPI = {
         return instance.post(`follow/${id}`)
     }
 }
+export const profileAPI = {
+        setUsersProfile(userId: number) {
+            return instance.get(`profile/` + userId)
+                .then(res => {
+                    console.log(res.data)
+                    return res
+                })
+        },
+    getStatusOfUser(userId: number) {
+            debugger
+        return instance.get(`/profile/status/${userId}`)
+            .then(res=>{
+                debugger
+                console.log(res.data)
+                return res
+            })
+    },
+    updateStatus(status:string){
+        return instance.put(`/profile/status`,{status: status})
+    }
+    }
 export const authAPI = {
     authMe() {
         return instance.get(`auth/me`)

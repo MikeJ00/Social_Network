@@ -1,7 +1,7 @@
 import React from 'react';
 import {Profile} from "./Profile";
 import {connect} from "react-redux";
-import {getUsersProfileTC} from "../../redux/profile-reducer";
+import {getStatusTC, getUsersProfileTC, updateStatusTC} from "../../redux/profile-reducer";
 import {Redirect, withRouter} from "react-router-dom";
 import {AuthWithRedirect} from "../../hoc/AuthWithRedirect";
 import {compose} from "redux";
@@ -10,6 +10,9 @@ type RootType = {
     profile: RootProfileContainerType
     getUsersProfileTC: (userId: any) => void
     isAuth: boolean
+    getStatusTC:(userId: number) => void
+    status:string
+    updateStatusTC: (status: string) => void
 }
 export type RootProfileContainerType = {
     userId: number
@@ -42,24 +45,28 @@ class ProfileContainerClassComponent extends React.Component<RootType, any> {
         }
         debugger
         this.props.getUsersProfileTC(userId)
+
         // userAPI.setUsersProfile(userId).then(res => {
         //     this.props.setUserProfile(res.data)
         // })
+        this.props.getStatusTC(userId)
     }
 
     render() {
         debugger
         // if (!this.props.isAuth) return <Redirect to={"login"}/>
-        return (<Profile {...this.props} profile={this.props.profile}/>
+        return (<Profile {...this.props} profile={this.props.profile}
+                         status={this.props.status} updateStatusTC={this.props.updateStatusTC}/>
         )
     }
 }
 
 let mapStateToProps = (state: any) => ({
     profile: state.profilePage.profile,
+    status: state.profilePage.status
 })
 export const ProfileContainer = compose(
-    connect(mapStateToProps, {getUsersProfileTC}),
+    connect(mapStateToProps, {getUsersProfileTC, getStatusTC, updateStatusTC}),
     withRouter,
     // AuthWithRedirect
 )(ProfileContainerClassComponent)
