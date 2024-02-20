@@ -32,8 +32,18 @@ export class ProfileStatus extends React.Component<ProfileStatusType, any> {
             status:e.currentTarget.value
         });
     }
+    componentDidUpdate(prevProps: Readonly<ProfileStatusType>, prevState: Readonly<any>, snapshot?: any) {
+        debugger
+        if(prevProps.status !== this.props.status)
+        this.setState({
+            status: this.props.status
+        })
+        debugger
+        console.log("was call")
+    }
 
     render() {
+        console.log("render")
         return (
             <div>
                 {!this.state.editMode &&
