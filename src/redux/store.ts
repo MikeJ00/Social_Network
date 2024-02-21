@@ -19,7 +19,7 @@ export type MyPostsTypeLesson43 = {
 }
 export type ProfileType = {
     postsData: Array<PostsDataType>
-    newPostText: string
+    // newPostText: string
     profile:null
     status:string
     // addPost: (postMessages: string) => void
@@ -32,7 +32,7 @@ export type PostsDataType = {
 export type MainDialogsType = {
     dialogsData: Array<DialogsDataType>
     messagesData: Array<MessagesDataType>
-    newMessageText: string
+    // newMessageText: string
     // addMessagePost: () => void
     // updateNewMessageText: (newText:string) => void
 }

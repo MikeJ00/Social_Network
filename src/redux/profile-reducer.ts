@@ -12,7 +12,6 @@ let initialState = {
         {id: "2", message: "Okay", likesCount: 9},
         {id: "3", message: "ZZZZZ", likesCount: 18},
     ],
-    newPostText: "It-incubator",
     profile: null,
     status: ""
 }
@@ -22,20 +21,20 @@ export const profileReducer = (state = initialState, action: RootActionProfileTy
         case ADD_POST: {
             let newPost = {
                 id: state.postsData.length + 1,
-                message: state.newPostText,
+                message: action.newPostText,
                 likesCount: 2
             }
             return {
                 ...state,
-                newPostText: "",
+                // newPostText: "",
                 postsData: [...state.postsData, newPost]
             }
         }
-        case UPDATE_NEW_POST_TEXT: {
-            let copyState = {...state}
-            copyState.newPostText = action.newText;
-            return copyState
-        }
+        // case UPDATE_NEW_POST_TEXT: {
+        //     let copyState = {...state}
+        //     copyState.newPostText = action.newText;
+        //     return copyState
+        // }
         case SET_USER_PROFILE: {
             return {...state, profile: action.profile}
         }
@@ -47,9 +46,9 @@ export const profileReducer = (state = initialState, action: RootActionProfileTy
     }
 
 }
-export let addPostAC = () => ({type: ADD_POST} as const)
-export let updateNewPostTextAC = (text: string) =>
-    ({type: UPDATE_NEW_POST_TEXT, newText: text} as const)
+export let addPostAC = (newPostText:string) => ({type: ADD_POST, newPostText} as const)
+// export let updateNewPostTextAC = (text: string) =>
+//     ({type: UPDATE_NEW_POST_TEXT, newText: text} as const)
 export let setUserProfileAC = (profile: any) =>
     ({type: SET_USER_PROFILE, profile} as const)
 export const setStatusAC = (status: string) => ({
@@ -57,10 +56,10 @@ export const setStatusAC = (status: string) => ({
 } as const)
 
 // type MainActionType = typeof addPostAC | typeof updateNewPostTextAC
-export type RootActionProfileType = updateNewPostTextActionType | addPostActionType
+export type RootActionProfileType = addPostActionType
     | setUserProfileActionType | setStatusActionType
 
-type updateNewPostTextActionType = ReturnType<typeof updateNewPostTextAC>
+// type updateNewPostTextActionType = ReturnType<typeof updateNewPostTextAC>
 type addPostActionType = ReturnType<typeof addPostAC>
 type setUserProfileActionType = ReturnType<typeof setUserProfileAC>
 type setStatusActionType = ReturnType<typeof setStatusAC>

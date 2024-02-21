@@ -1,5 +1,5 @@
 import React from 'react';
-import {addMessagePostAC, updateNewMessageTextAC} from "../../redux/dialogs-reducer";
+import {addMessagePostAC} from "../../redux/dialogs-reducer";
 import {Dialogs} from "./Dialogs";
 import {connect} from "react-redux";
 import {MainStateType} from "../../redux/store";
@@ -29,17 +29,17 @@ let mapStateToProps = (state: MainStateType) => {
     return {
         dialogsData: state.dialogsPage.dialogsData,
         messagesData: state.dialogsPage.messagesData,
-        newMessageText: state.dialogsPage.newMessageText,
+        // newMessageText: state.dialogsPage.newMessageText,
         // isAuth: state.auth.isAuth
     }
 }
 let mapDispatchToProps = (dispatch: any) => {
     return {
-        changeNewMessageTextCb: (text: string) => {
-            dispatch(updateNewMessageTextAC(text))
-        },
-        addMessage: () => {
-            dispatch(addMessagePostAC())
+        // changeNewMessageTextCb: (text: string) => {
+        //     dispatch(updateNewMessageTextAC(text))
+        // },
+        addMessage: (newMessageText:string) => {
+            dispatch(addMessagePostAC(newMessageText))
         },
     }
 }
