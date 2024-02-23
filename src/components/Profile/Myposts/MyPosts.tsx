@@ -3,6 +3,8 @@ import s from './MyPosts.module.css'
 import {Post} from "./Post/Post";
 import {MyPostsTypeLesson43} from "../../../redux/store";
 import {Field, reduxForm} from "redux-form";
+import {maxLength30, maxLengthCreator, required} from "../../../utils/validators/validators";
+import {Textarea} from "../../common/FormsControls/FormsControls";
 
 
 export const MyPosts = (props: MyPostsTypeLesson43) => {
@@ -32,11 +34,15 @@ export const MyPosts = (props: MyPostsTypeLesson43) => {
         </div>
     </div>
 }
+let maxLength10 = maxLengthCreator(10)
 const AddPostForm = (props: any) => {
     return (
         <form onSubmit={props.handleSubmit}>
             <div>
-                <Field component={"textarea"} name="newPostText" placeholder={"add New Post"} />
+                <Field component={Textarea}
+                       name="newPostText"
+                       placeholder={"add New Post"}
+                       validate = {[required,maxLength10]} />
                 {/*<textarea onChange={onPostChange}*/}
                 {/*          value={props.newPostText}/>*/}
             </div>

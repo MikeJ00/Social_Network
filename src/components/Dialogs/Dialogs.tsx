@@ -1,19 +1,23 @@
-import React, {ChangeEvent} from 'react';
+import React from 'react';
 import s from './Dialogs.module.css'
 import {DialogItem} from "./DialogItem/DialogItem";
 import {DialogMessage} from "./DialogMessage/DialogMessage";
 import {DialogsTypeLesson43,} from "../../redux/store";
-import {Redirect} from "react-router-dom";
 import {Field, reduxForm} from "redux-form";
+import {Textarea} from "../common/FormsControls/FormsControls";
+import {maxLengthCreator, required} from "../../utils/validators/validators";
 
-
+let maxLengthCreator99 = maxLengthCreator(99)
 const addNewMessage = (props: any) => {
     return (
         <form onSubmit={props.handleSubmit}>
             <>
-                <Field component={"textarea"} name="newMessageText" placeholder={"write new message"}/>
+                <Field component={Textarea}
+                       validate={[required, maxLengthCreator99]}
+                       name="newMessageText"
+                       placeholder={"write new message"}/>
                 <button>
-                    Add post
+                    Add message
                 </button>
             </>
         </form>
