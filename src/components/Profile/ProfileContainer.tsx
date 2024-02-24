@@ -41,7 +41,7 @@ class ProfileContainerClassComponent extends React.Component<RootType, any> {
     componentDidMount() {
         let userId = this.props.match.params.userId;
         if (!userId) {
-            userId = 2;
+            userId = 28958;
         }
         debugger
         this.props.getUsersProfileTC(userId)
@@ -68,7 +68,7 @@ let mapStateToProps = (state: any) => ({
 export const ProfileContainer = compose(
     connect(mapStateToProps, {getUsersProfileTC, getStatusTC, updateStatusTC}),
     withRouter,
-    // AuthWithRedirect
+    AuthWithRedirect
 )(ProfileContainerClassComponent)
 
 

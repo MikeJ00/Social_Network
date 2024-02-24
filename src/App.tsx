@@ -6,7 +6,7 @@ import {DialogsContainer} from "./components/Dialogs/DialogsContainer";
 import {UsersContainer} from "./components/Users/UsersContainer";
 import {ProfileContainer} from "./components/Profile/ProfileContainer";
 import {HeaderContainer} from "./components/Header/HeaderContainerAPIClass";
-import {Login} from "./Login/Login";
+import {Login, LoginContainer} from "./Login/Login";
 
 
 function App(props: any) {
@@ -25,7 +25,7 @@ function App(props: any) {
                 <Route exact path='/users'
                        render={() => <UsersContainer/>}/>
                 <Route exact path='/login'
-                       render={() => <Login/>}/>
+                       render={() => <LoginContainer/>}/>
             </div>
         </div>
     );

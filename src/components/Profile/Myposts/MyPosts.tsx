@@ -1,9 +1,9 @@
-import React, {ChangeEvent, useRef} from 'react';
+import React from 'react';
 import s from './MyPosts.module.css'
 import {Post} from "./Post/Post";
 import {MyPostsTypeLesson43} from "../../../redux/store";
 import {Field, reduxForm} from "redux-form";
-import {maxLength30, maxLengthCreator, required} from "../../../utils/validators/validators";
+import {maxLengthCreator, required} from "../../../utils/validators/validators";
 import {Textarea} from "../../common/FormsControls/FormsControls";
 
 
@@ -19,9 +19,9 @@ export const MyPosts = (props: MyPostsTypeLesson43) => {
     // const onPostChange = (e: ChangeEvent<HTMLTextAreaElement>) => {
     //     props.PostChange(e.currentTarget.value)
     // }
-    const addNewPost = (values:any) => {
+    const addNewPost = (values: any) => {
         console.log(values.newPostText)
-       props.addPost(values.newPostText)
+        props.addPost(values.newPostText)
     }
 
     return <div className={s.postsBlock}>
@@ -42,7 +42,7 @@ const AddPostForm = (props: any) => {
                 <Field component={Textarea}
                        name="newPostText"
                        placeholder={"add New Post"}
-                       validate = {[required,maxLength10]} />
+                       validate={[required, maxLength10]}/>
                 {/*<textarea onChange={onPostChange}*/}
                 {/*          value={props.newPostText}/>*/}
             </div>
@@ -56,5 +56,5 @@ const AddPostForm = (props: any) => {
 }
 
 const ReduxAddPostForm = reduxForm({
-    form:'addPostForm'
+    form: 'addPostForm'
 })(AddPostForm)

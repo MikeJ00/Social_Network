@@ -17,7 +17,7 @@ export const userAPI = {
     },
     setUsersProfile(userId: number) {
         console.warn("Obsolute method.Please profileApi object")
-    return profileAPI.setUsersProfile(userId)
+        return profileAPI.setUsersProfile(userId)
     },
     deleteFollow(id: number) {
         return instance.delete(`follow/${id}`)
@@ -27,26 +27,26 @@ export const userAPI = {
     }
 }
 export const profileAPI = {
-        setUsersProfile(userId: number) {
-            return instance.get(`profile/` + userId)
-                .then(res => {
-                    console.log(res.data)
-                    return res
-                })
-        },
+    setUsersProfile(userId: number) {
+        return instance.get(`profile/` + userId)
+            .then(res => {
+                console.log(res.data)
+                return res
+            })
+    },
     getStatusOfUser(userId: number) {
-            debugger
+        debugger
         return instance.get(`/profile/status/${userId}`)
-            .then(res=>{
+            .then(res => {
                 debugger
                 console.log(res.data)
                 return res
             })
     },
-    updateStatus(status:string){
-        return instance.put(`/profile/status`,{status: status})
+    updateStatus(status: string) {
+        return instance.put(`/profile/status`, {status: status})
     }
-    }
+}
 export const authAPI = {
     authMe() {
         return instance.get(`auth/me`)
@@ -54,6 +54,12 @@ export const authAPI = {
                 return res
             })
     },
+    loginMe(email:string, password:string, rememberMe:boolean){
+        return instance.post(`/auth/login`, {email, password, rememberMe})
+    },
+    logOut(){
+        return instance.delete(`/auth/login`)
+    }
 }
 
 // axios.delete(`https://social-network.samuraijs.com/api/1.0/follow/${u.id}`,

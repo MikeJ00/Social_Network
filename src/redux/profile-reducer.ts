@@ -13,7 +13,7 @@ let initialState = {
         {id: "3", message: "ZZZZZ", likesCount: 18},
     ],
     profile: null,
-    status: ""
+    status: "Hello guys"
 }
 export const profileReducer = (state = initialState, action: RootActionProfileType): ProfileType => {
     debugger
