@@ -13,6 +13,7 @@ type RootType = {
     getStatusTC:(userId: number) => void
     status:string
     updateStatusTC: (status: string) => void
+    authUserId:number
 }
 export type RootProfileContainerType = {
     userId: number
@@ -41,7 +42,9 @@ class ProfileContainerClassComponent extends React.Component<RootType, any> {
     componentDidMount() {
         let userId = this.props.match.params.userId;
         if (!userId) {
-            userId = 28958;
+            debugger
+            // userId = 28958;
+            userId = this.props.authUserId; 
         }
         debugger
         this.props.getUsersProfileTC(userId)
@@ -63,12 +66,15 @@ class ProfileContainerClassComponent extends React.Component<RootType, any> {
 
 let mapStateToProps = (state: any) => ({
     profile: state.profilePage.profile,
-    status: state.profilePage.status
+    status: state.profilePage.status,
+    authUserId: state.auth.id,
+    isAuth: state.auth.isAuth
+
 })
 export const ProfileContainer = compose(
     connect(mapStateToProps, {getUsersProfileTC, getStatusTC, updateStatusTC}),
     withRouter,
-    AuthWithRedirect
+    // AuthWithRedirect
 )(ProfileContainerClassComponent)
 
 

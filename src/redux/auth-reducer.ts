@@ -1,4 +1,5 @@
 import {authAPI} from "../api/api";
+import {stopSubmit} from "redux-form";
 
 type AuthReducerType = {
     id: null | string
@@ -11,13 +12,11 @@ type RootAuthType = {
 }
 const SET_USER_DATA = "SET_USER_DATA";
 
-let initialState: RootAuthType = {
-    data: {
+let initialState: AuthReducerType = {
         id: null,
         email: null,
         login: null,
         isAuth: false
-    }
 }
 export const authReducer = (state = initialState, action: RootActionAuthType) => {
     debugger
@@ -47,6 +46,9 @@ export const LoginTC = (email:string, password:string, rememberMe:boolean) => (d
         console.log(res)
         if (res.data.resultCode === 0) {
             dispatch(getAuthUserDataTC())
+        } else {
+            let message = res.data.messages.length > 0 ? res.data.messages[0] : "Some error";
+            dispatch(stopSubmit("contact", {_error: message}))
         }
     });
 }

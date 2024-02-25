@@ -28,6 +28,7 @@ export const userAPI = {
 }
 export const profileAPI = {
     setUsersProfile(userId: number) {
+        debugger
         return instance.get(`profile/` + userId)
             .then(res => {
                 console.log(res.data)
