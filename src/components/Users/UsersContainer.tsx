@@ -31,7 +31,7 @@ class UsersContainerClassComponent extends React.Component<RootUsersTypeForCompo
     }
 
     render() {
-        if(!this.props.isAuth) return <Redirect to={"login"}/>
+        // if(!this.props.isAuth) return <Redirect to={"login"}/>
         return <>
             {this.props.isFetching ?
                 <Preloader/> : null}
@@ -78,6 +78,6 @@ let mapDispatchPostsToProps = (dispatch: any) => {
 
 export const UsersContainer = compose(
     connect(mapStateUsersToProps, mapDispatchPostsToProps),
-    AuthWithRedirect
+    // AuthWithRedirect
 )
 (UsersContainerClassComponent)

@@ -2,18 +2,17 @@ import React from 'react';
 import {Profile} from "./Profile";
 import {connect} from "react-redux";
 import {getStatusTC, getUsersProfileTC, updateStatusTC} from "../../redux/profile-reducer";
-import {Redirect, withRouter} from "react-router-dom";
-import {AuthWithRedirect} from "../../hoc/AuthWithRedirect";
+import {withRouter} from "react-router-dom";
 import {compose} from "redux";
 
 type RootType = {
     profile: RootProfileContainerType
     getUsersProfileTC: (userId: any) => void
     isAuth: boolean
-    getStatusTC:(userId: number) => void
-    status:string
+    getStatusTC: (userId: number) => void
+    status: string
     updateStatusTC: (status: string) => void
-    authUserId:number
+    authUserId: number
 }
 export type RootProfileContainerType = {
     userId: number
@@ -44,7 +43,10 @@ class ProfileContainerClassComponent extends React.Component<RootType, any> {
         if (!userId) {
             debugger
             // userId = 28958;
-            userId = this.props.authUserId; 
+            userId = this.props.authUserId;
+            if(!userId){
+                this.props.history.push("/login")
+            }
         }
         debugger
         this.props.getUsersProfileTC(userId)

@@ -32,7 +32,8 @@ export const authReducer = (state = initialState, action: RootActionAuthType) =>
     }
 }
 export const getAuthUserDataTC = () => (dispatch: any) => {
-    authAPI.authMe().then(res => {
+    return authAPI.authMe()
+        .then(res => {
         debugger
         if (res.data.resultCode === 0) {
             let {id, email, login} = res.data.data

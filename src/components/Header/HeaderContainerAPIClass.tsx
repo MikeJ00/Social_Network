@@ -1,24 +1,20 @@
 import React from 'react';
 import {Header} from "./Header";
 import {connect} from "react-redux";
-import {getAuthUserDataTC, LogOutTC} from "../../redux/auth-reducer";
+import {LogOutTC} from "../../redux/auth-reducer";
 
 type HeaderContainerType = {
-    getAuthUserDataTC: () => void
     LogOutTC: () => void
 }
 
 class HeaderContainerAPIClass extends React.Component<HeaderContainerType, any> {
-    componentDidMount() {
-        debugger
-        this.props.getAuthUserDataTC()
-        // authAPI.authMe().then(res => {
-        //     if (res.resultCode === 0) {
-        //         let {id, email, Login} = res.data
-        //         this.props.setAuthUserDataAC(id, email, Login)
-        //     }
-        // })
-    }
+
+    // authAPI.authMe().then(res => {
+    //     if (res.resultCode === 0) {
+    //         let {id, email, Login} = res.data
+    //         this.props.setAuthUserDataAC(id, email, Login)
+    //     }
+    // })
 
 //     axios.get(`https://social-network.samuraijs.com/api/1.0/auth/me`, {
 //     withCredentials: true
@@ -41,4 +37,4 @@ let mapStateToProps = (state: any) => ({
     isAuth: state.auth.isAuth,
     login: state.auth.login
 })
-export const HeaderContainer = connect(mapStateToProps, {getAuthUserDataTC, LogOutTC})(HeaderContainerAPIClass)
+export const HeaderContainer = connect(mapStateToProps, {LogOutTC})(HeaderContainerAPIClass)
