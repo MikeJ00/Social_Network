@@ -3,6 +3,7 @@ import s from './ProfileInfo.module.css'
 import {Preloader} from "../../common/Preloader/Preloader";
 import {ProfileType} from "../Profile";
 import {ProfileStatus} from "./ProfileStatus";
+import {ProfileStatusOnHooks} from "./ProfileStatusOnHooks";
 
 export const ProfileInfo = (props: ProfileType) => {
     if (!props.profile) {
@@ -17,7 +18,9 @@ export const ProfileInfo = (props: ProfileType) => {
             </div>
             <div className={s.descriptionBlock}>
                 <img src={props.profile.photos.large}/>
-                <ProfileStatus status={props.status}
+                {/*<ProfileStatus status={props.status}*/}
+                {/*               updateStatusTC={props.updateStatusTC}/>*/}
+                <ProfileStatusOnHooks status={props.status}
                                updateStatusTC={props.updateStatusTC}/>
                 ava + description
                 <div>
