@@ -8,6 +8,7 @@ export type RootUsersType = {
     currentPage: number
     isFetching: boolean
     followingInProgress: []
+    fake:number
 }
 type photoType = {
     small?: string
@@ -40,11 +41,13 @@ let initialState: RootUsersType = {
     totalUsersCount: 5,
     currentPage: 1,
     isFetching: true,
-    followingInProgress: []
+    followingInProgress: [],
+    fake:10
 }
 export const usersReducer = (state = initialState, action: RootActionProfileType) => {
     debugger
     switch (action.type) {
+        case "FAKE": return {...state, fake: state.fake + 1}
         case FOLLOW:
             return {
                 ...state,
@@ -90,6 +93,8 @@ export const usersReducer = (state = initialState, action: RootActionProfileType
             return state
     }
 }
+let fakeAC = (fake:number) =>
+    ({type:"FAKE"} as const)
 export let followAC = (userId: number) =>
     ({type: FOLLOW, userId, followed: true} as const)
 export let unfollowAC = (userId: number) =>
@@ -107,8 +112,9 @@ export let changeToggleProgressAC = (followingInProgress: boolean, userId: numbe
 
 export type RootActionProfileType = followActionType | unFollowActionType |
     setUsersActionType | setCurrentPageActionType | setTotalUsersCountActionType
-    | changeFetchStatusActionType | changeToggleProgressActionType
+    | changeFetchStatusActionType | changeToggleProgressActionType | fakeActionType
 
+type fakeActionType = ReturnType<typeof fakeAC>
 type followActionType = ReturnType<typeof followAC>
 type unFollowActionType = ReturnType<typeof unfollowAC>
 type setUsersActionType = ReturnType<typeof setUsersAC>

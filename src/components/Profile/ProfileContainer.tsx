@@ -58,7 +58,7 @@ class ProfileContainerClassComponent extends React.Component<RootType, any> {
     }
 
     render() {
-        debugger
+        console.log("Render profile")
         // if (!this.props.isAuth) return <Redirect to={"login"}/>
         return (<Profile {...this.props} profile={this.props.profile}
                          status={this.props.status} updateStatusTC={this.props.updateStatusTC}/>
@@ -66,13 +66,16 @@ class ProfileContainerClassComponent extends React.Component<RootType, any> {
     }
 }
 
-let mapStateToProps = (state: any) => ({
-    profile: state.profilePage.profile,
-    status: state.profilePage.status,
-    authUserId: state.auth.id,
-    isAuth: state.auth.isAuth
+let mapStateToProps = (state: any) => {
+    console.log("mapStateToProps call")
+    return ({
+        profile: state.profilePage.profile,
+        status: state.profilePage.status,
+        authUserId: state.auth.id,
+        isAuth: state.auth.isAuth
 
-})
+    })
+}
 export const ProfileContainer = compose(
     connect(mapStateToProps, {getUsersProfileTC, getStatusTC, updateStatusTC}),
     withRouter,
