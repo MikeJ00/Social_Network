@@ -123,7 +123,6 @@ export const getUsersTC = (currentPage: number, totalUsersCount: number) => (dis
     debugger
     userAPI.getUsers(currentPage, totalUsersCount).then(res => {
         dispatch(changeFetchStatusAC(false))
-        debugger
         dispatch(setUsersAC(res.items))
         dispatch(setTotalUsersCountAC((res.totalCount / 300)))
     });

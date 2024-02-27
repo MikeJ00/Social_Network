@@ -1,11 +1,19 @@
 import React from 'react';
 import {connect} from "react-redux";
-import {changeToggleProgressAC, followTC, getUsersTC, unFollowTC, UsersType} from "../../redux/users-reducer";
+import {followTC, getUsersTC, unFollowTC, UsersType} from "../../redux/users-reducer";
 import {UsersFunc} from "./UsersFunc";
 import {Preloader} from "../common/Preloader/Preloader";
-import {Redirect} from "react-router-dom";
-import {AuthWithRedirect} from "../../hoc/AuthWithRedirect";
 import {compose} from "redux";
+import {RootStateRedux} from "../../redux/redux-store";
+import {
+    getCurrentPage,
+    getFollowingInProgress,
+    getIsAuth,
+    getIsFetching,
+    getPageSize,
+    getTotalUsersCount,
+    getUsers
+} from "../../redux/users-selectors";
 
 type RootUsersTypeForComponent = {
     users: UsersType[],
@@ -17,7 +25,7 @@ type RootUsersTypeForComponent = {
     getUsers: (currentPage: number, totalUsersCount: number) => void
     successFollow: (userId: number) => void
     successUnFollow: (userId: number) => void
-    isAuth:boolean
+    isAuth: boolean
 }
 
 class UsersContainerClassComponent extends React.Component<RootUsersTypeForComponent, any> {
@@ -49,17 +57,29 @@ class UsersContainerClassComponent extends React.Component<RootUsersTypeForCompo
     }
 }
 
-let mapStateUsersToProps = (state: any) => {
+// let mapStateUsersToProps = (state: any) => {
+//     return {
+//         users: state.users.users,
+//         pageSize: state.users.pageSize,
+//         totalUsersCount: state.users.totalUsersCount,
+//         currentPage: state.users.currentPage,
+//         isFetching: state.users.isFetching,
+//         followingInProgress: state.users.followingInProgress,
+//         isAuth: state.auth.isAuth
+//     }
+// }
+let mapStateUsersToProps = (state: RootStateRedux) => {
     return {
-        users: state.users.users,
-        pageSize: state.users.pageSize,
-        totalUsersCount: state.users.totalUsersCount,
-        currentPage: state.users.currentPage,
-        isFetching: state.users.isFetching,
-        followingInProgress: state.users.followingInProgress,
-        isAuth: state.auth.isAuth
+        users: getUsers(state),
+        pageSize: getPageSize(state),
+        totalUsersCount: getTotalUsersCount(state),
+        currentPage: getCurrentPage(state),
+        isFetching: getIsFetching(state),
+        followingInProgress: getFollowingInProgress(state),
+        isAuth: getIsAuth(state)
     }
 }
+
 let mapDispatchPostsToProps = (dispatch: any) => {
     return {
         getUsers: (currentPage: number, totalUsersCount: number) => {
