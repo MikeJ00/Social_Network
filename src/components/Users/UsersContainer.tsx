@@ -12,7 +12,7 @@ import {
     getIsFetching,
     getPageSize,
     getTotalUsersCount,
-    getUsers
+    getUsers, getUsersSelector, getUsersSuperSelector, getUsersWithSelector
 } from "../../redux/users-selectors";
 
 type RootUsersTypeForComponent = {
@@ -39,6 +39,7 @@ class UsersContainerClassComponent extends React.Component<RootUsersTypeForCompo
     }
 
     render() {
+        console.log("Render users")
         // if(!this.props.isAuth) return <Redirect to={"login"}/>
         return <>
             {this.props.isFetching ?
@@ -69,8 +70,10 @@ class UsersContainerClassComponent extends React.Component<RootUsersTypeForCompo
 //     }
 // }
 let mapStateUsersToProps = (state: RootStateRedux) => {
+    console.log("mapStateToProps call")
     return {
-        users: getUsers(state),
+        // users: getUsers(state),
+        users: getUsersSelector(state),
         pageSize: getPageSize(state),
         totalUsersCount: getTotalUsersCount(state),
         currentPage: getCurrentPage(state),

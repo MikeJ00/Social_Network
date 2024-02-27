@@ -1,9 +1,17 @@
 import React from 'react';
 import {RootStateRedux} from "./redux-store";
+import {createSelector} from "reselect";
 
-export const getUsers = (state:RootStateRedux) =>{
-    return state.users.users;
+const getUsers = (state:RootStateRedux) =>{
+    // return state.users.users.filter((u:any)=>true);
+    return state.users.users
 }
+export const getUsersWithoutSelectorExample = (state:RootStateRedux) =>{
+    return getUsers(state).filter((u:any)=>true)
+}
+export const getUsersSelector = createSelector(getUsers,(users:any)=>{
+    return users.filter((u)=>true)
+})
 export const getPageSize = (state:RootStateRedux) =>{
     return state.users.pageSize;
 }
