@@ -7,7 +7,18 @@ import {maxLengthCreator, required} from "../../../utils/validators/validators";
 import {Textarea} from "../../common/FormsControls/FormsControls";
 
 
-export const MyPosts = (props: MyPostsTypeLesson43) => {
+// export class MyPosts extends React.PureComponent<MyPostsTypeLesson43> {
+// componentDidMount() {
+//     setTimeout(()=>{
+//         this.setState({a:12})
+//     },3000)
+// }
+//
+// shouldComponentUpdate(nextProps: Readonly<MyPostsTypeLesson43>, nextState: Readonly<{}>, nextContext: any): boolean {
+//     return nextProps != this.props || nextState != this.state
+// }
+export const MyPosts = React.memo((props: MyPostsTypeLesson43) => {
+    console.log("render MyPosts")
     let postsElement = props.postsData.map(
         (el) => <Post message={el.message} likeCount={el.likesCount} id={el.id} key={el.id}/>
     )
@@ -33,7 +44,8 @@ export const MyPosts = (props: MyPostsTypeLesson43) => {
             {postsElement}
         </div>
     </div>
-}
+})
+
 let maxLength10 = maxLengthCreator(10)
 const AddPostForm = (props: any) => {
     return (
