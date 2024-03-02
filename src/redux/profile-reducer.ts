@@ -6,6 +6,7 @@ const ADD_POST = "ADD-POST";
 const UPDATE_NEW_POST_TEXT = "UPDATE-NEW-POST-TEXT";
 const SET_USER_PROFILE = "SET_USER_PROFILE"
 const SET_STATUS = "SET_STATUS"
+const DELETE_POST = "DELETE_POST"
 let initialState = {
     postsData: [
         {id: "1", message: "Hi, how are you, man?", likesCount: 2},
@@ -40,12 +41,15 @@ export const profileReducer = (state = initialState, action: RootActionProfileTy
         case SET_STATUS: {
             return {...state, status: action.status}
         }
+        case DELETE_POST: {
+            return {...state, postsData: state.postsData.filter((p) => p.id != action.postId)}
+        }
         default:
             return state
     }
 
 }
-export let addPostAC = (newPostText:string) => ({type: ADD_POST, newPostText} as const)
+export let addPostAC = (newPostText: string) => ({type: ADD_POST, newPostText} as const)
 // export let updateNewPostTextAC = (text: string) =>
 //     ({type: UPDATE_NEW_POST_TEXT, newText: text} as const)
 export let setUserProfileAC = (profile: any) =>
@@ -53,15 +57,21 @@ export let setUserProfileAC = (profile: any) =>
 export const setStatusAC = (status: string) => ({
     type: SET_STATUS, status
 } as const)
+export const deletePostAC = (postId: number) => ({
+        type: DELETE_POST, postId
+    }
+)
 
 // type MainActionType = typeof addPostAC | typeof updateNewPostTextAC
 export type RootActionProfileType = addPostActionType
     | setUserProfileActionType | setStatusActionType
+    | deletePostActionType
 
 // type updateNewPostTextActionType = ReturnType<typeof updateNewPostTextAC>
 type addPostActionType = ReturnType<typeof addPostAC>
 type setUserProfileActionType = ReturnType<typeof setUserProfileAC>
 type setStatusActionType = ReturnType<typeof setStatusAC>
+type deletePostActionType = ReturnType<typeof deletePostAC>
 
 export const getUsersProfileTC = (userId: number) => (dispatch: any) => {
     debugger
