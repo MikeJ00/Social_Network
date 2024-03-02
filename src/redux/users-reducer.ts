@@ -45,7 +45,6 @@ let initialState: RootUsersType = {
     fake:10
 }
 export const usersReducer = (state = initialState, action: RootActionProfileType) => {
-    debugger
     switch (action.type) {
         case "FAKE": return {...state, fake: state.fake + 1}
         case FOLLOW:

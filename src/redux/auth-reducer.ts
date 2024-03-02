@@ -19,7 +19,6 @@ let initialState: AuthReducerType = {
         isAuth: false
 }
 export const authReducer = (state = initialState, action: RootActionAuthType) => {
-    debugger
     switch (action.type) {
         case SET_USER_DATA:
             return {

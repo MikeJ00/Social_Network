@@ -18,10 +18,13 @@ import {Textarea} from "../../common/FormsControls/FormsControls";
 //     return nextProps != this.props || nextState != this.state
 // }
 export const MyPosts = React.memo((props: MyPostsTypeLesson43) => {
+    debugger
     console.log("render MyPosts")
-    let postsElement = props.postsData.map(
+    debugger
+    let postsElement = [...props.postsData].reverse().map( //почему меняется последовательность постов при копии
         (el) => <Post message={el.message} likeCount={el.likesCount} id={el.id} key={el.id}/>
     )
+    console.log(postsElement)
 
     // const onClickAddPost = () => {
     //     debugger
