@@ -1,6 +1,4 @@
 import {userAPI} from "../api/api";
-import {Dispatch} from "redux";
-import {updateObjectInArray} from "../utils/object-helpers";
 
 export type RootUsersType = {
     users: UsersType[]
@@ -39,7 +37,7 @@ const TOGGLE_IS_FOLLOWING_PROGRESS = "users/TOGGLE_IS_FOLLOWING_PROGRESS"
 let initialState: RootUsersType = {
     users: [],
     pageSize: 1,
-    totalUsersCount: 5,
+    totalUsersCount: 10,
     currentPage: 1,
     isFetching: true,
     followingInProgress: [],
@@ -129,7 +127,7 @@ export const getUsersTC = (currentPage: number, totalUsersCount: number) => asyn
     let pr = await userAPI.getUsers(currentPage, totalUsersCount)
     dispatch(changeFetchStatusAC(false))
     dispatch(setUsersAC(pr.items))
-    dispatch(setTotalUsersCountAC((pr.totalCount / 300)))
+    dispatch(setTotalUsersCountAC((pr.totalCount / 200)))
 }
 const unfollowFollowFlow = async (dispatch: any, userId: number, apiMethod: any, actionCreator: any) => {
     dispatch(changeToggleProgressAC(true, userId))
