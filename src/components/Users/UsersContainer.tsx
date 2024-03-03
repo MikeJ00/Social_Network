@@ -12,7 +12,7 @@ import {
     getIsFetching,
     getPageSize,
     getTotalUsersCount,
-    getUsers, getUsersSelector, getUsersSuperSelector, getUsersWithSelector
+    getUsersSelector
 } from "../../redux/users-selectors";
 
 type RootUsersTypeForComponent = {

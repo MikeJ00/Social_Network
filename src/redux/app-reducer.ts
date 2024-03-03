@@ -9,7 +9,7 @@ type AuthReducerType = {
 type RootAuthType = {
     data: AuthReducerType
 }
-const SET_INITIALIZED = "SET_INITIALIZED";
+const SET_INITIALIZED = "app/SET_INITIALIZED";
 
 let initialState: AuthReducerType = {
     initialized: false

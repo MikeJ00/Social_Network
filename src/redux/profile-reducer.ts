@@ -2,11 +2,11 @@ import {ProfileType} from "./store";
 import {profileAPI, userAPI} from "../api/api";
 import {changeToggleProgressAC, unfollowAC} from "./users-reducer";
 
-const ADD_POST = "ADD-POST";
-const UPDATE_NEW_POST_TEXT = "UPDATE-NEW-POST-TEXT";
-const SET_USER_PROFILE = "SET_USER_PROFILE"
-const SET_STATUS = "SET_STATUS"
-const DELETE_POST = "DELETE_POST"
+const ADD_POST = "profile/ADD-POST";
+const UPDATE_NEW_POST_TEXT = "profile/UPDATE-NEW-POST-TEXT";
+const SET_USER_PROFILE = "profile/SET_USER_PROFILE"
+const SET_STATUS = "profile/SET_STATUS"
+const DELETE_POST = "profile/DELETE_POST"
 let initialState = {
     postsData: [
         {id: "1", message: "Hi, how are you, man?", likesCount: 2},
@@ -73,28 +73,22 @@ type setUserProfileActionType = ReturnType<typeof setUserProfileAC>
 type setStatusActionType = ReturnType<typeof setStatusAC>
 type deletePostActionType = ReturnType<typeof deletePostAC>
 
-export const getUsersProfileTC = (userId: number) => (dispatch: any) => {
+export const getUsersProfileTC = (userId: number) => async (dispatch: any) => {
     debugger
-    userAPI.setUsersProfile(userId).then(res => {
-        debugger
+    let promise = await userAPI.setUsersProfile(userId)
         // if (res.data.resultCode === 0) {
-        dispatch(setUserProfileAC(res.data))
+        dispatch(setUserProfileAC(promise.data))
         // dispatch(setUserProfileAC(userId))
         // }
-    });
 }
-export const getStatusTC = (userId: number) => (dispatch: any) => {
-    profileAPI.getStatusOfUser(userId).then(res => {
-        debugger
-        dispatch(setStatusAC(res.data))
-    });
+export const getStatusTC = (userId: number) => async (dispatch: any) => {
+    let promise = await profileAPI.getStatusOfUser(userId)
+
+        dispatch(setStatusAC(promise.data))
 }
-export const updateStatusTC = (status: string) => (dispatch: any) => {
-    debugger
-    profileAPI.updateStatus(status).then(res => {
-        if (res.data.resultCode === 0) {
-            debugger
+export const updateStatusTC = (status: string) => async (dispatch: any) => {
+    let pr = await profileAPI.updateStatus(status)
+        if (pr.data.resultCode === 0) {
             dispatch(setStatusAC(status))
         }
-    });
 }

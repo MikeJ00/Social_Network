@@ -10,13 +10,13 @@ type AuthReducerType = {
 type RootAuthType = {
     data: AuthReducerType
 }
-const SET_USER_DATA = "SET_USER_DATA";
+const SET_USER_DATA = "auth/SET_USER_DATA";
 
 let initialState: AuthReducerType = {
-        id: null,
-        email: null,
-        login: null,
-        isAuth: false
+    id: null,
+    email: null,
+    login: null,
+    isAuth: false
 }
 export const authReducer = (state = initialState, action: RootActionAuthType) => {
     switch (action.type) {
@@ -30,36 +30,27 @@ export const authReducer = (state = initialState, action: RootActionAuthType) =>
             return state
     }
 }
-export const getAuthUserDataTC = () => (dispatch: any) => {
-    return authAPI.authMe()
-        .then(res => {
-        debugger
-        if (res.data.resultCode === 0) {
-            let {id, email, login} = res.data.data
-            dispatch(setAuthUserDataAC(id, email, login, true))
-        }
-    });
+export const getAuthUserDataTC = () => async (dispatch: any) => {
+    let response = await authAPI.authMe()
+    if (response.data.resultCode === 0) {
+        let {id, email, login} = response.data.data
+        dispatch(setAuthUserDataAC(id, email, login, true))
+    }
 }
-export const LoginTC = (email:string, password:string, rememberMe:boolean) => (dispatch: any) => {
-    authAPI.loginMe(email,password,rememberMe).then(res => {
-        debugger
-        console.log(res)
-        if (res.data.resultCode === 0) {
-            dispatch(getAuthUserDataTC())
-        } else {
-            let message = res.data.messages.length > 0 ? res.data.messages[0] : "Some error";
-            dispatch(stopSubmit("contact", {_error: message}))
-        }
-    });
+export const LoginTC = (email: string, password: string, rememberMe: boolean) => async (dispatch: any) => {
+    let promise = await authAPI.loginMe(email, password, rememberMe)
+    if (promise.data.resultCode === 0) {
+        dispatch(getAuthUserDataTC())
+    } else {
+        let message = promise.data.messages.length > 0 ? promise.data.messages[0] : "Some error";
+        dispatch(stopSubmit("contact", {_error: message}))
+    }
 }
-export const LogOutTC = () => (dispatch: any) => {
-    authAPI.logOut().then(res => {
-        debugger
-        console.log(res)
-        if (res.data.resultCode === 0) {
-            dispatch(setAuthUserDataAC(null, null, null, false))
-        }
-    });
+export const LogOutTC = () => async (dispatch: any) => {
+    let response = await authAPI.logOut()
+    if (response.data.resultCode === 0) {
+        dispatch(setAuthUserDataAC(null, null, null, false))
+    }
 }
 export const setAuthUserDataAC = (id: string | null, email: string | null, login: string | null, isAuth: boolean) =>
     ({type: SET_USER_DATA, data: {id, email, login, isAuth}} as const)

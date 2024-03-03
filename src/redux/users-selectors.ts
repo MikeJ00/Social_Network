@@ -2,7 +2,7 @@ import React from 'react';
 import {RootStateRedux} from "./redux-store";
 import {createSelector} from "reselect";
 
-const getUsers = (state:RootStateRedux) =>{
+export const getUsers = (state:RootStateRedux) =>{
     // return state.users.users.filter((u:any)=>true);
     return state.users.users
 }

@@ -14,7 +14,7 @@ import {Preloader} from "./components/common/Preloader/Preloader";
 
 type RootAppType = {
     initializedSuccessAppTC: () => void
-    initialized:boolean
+    initialized: boolean
 }
 
 class App extends React.Component<RootAppType> {
@@ -24,7 +24,7 @@ class App extends React.Component<RootAppType> {
     }
 
     render() {
-        if(!this.props.initialized){
+        if (!this.props.initialized) {
             return <Preloader/>
         }
         return (
@@ -33,11 +33,9 @@ class App extends React.Component<RootAppType> {
                 <Navbar/>
                 <div className='app-wrapper-content'>
                     <Route exact path='/dialogs'
-                           render={() => <DialogsContainer
-                           />}/>
+                           render={() => <DialogsContainer/>}/>
                     <Route exact path='/profile:userId?'
-                           render={() => <ProfileContainer
-                           />}/>
+                           render={() => <ProfileContainer/>}/>
                     <Route exact path='/users'
                            render={() => <UsersContainer/>}/>
                     <Route exact path='/login'
@@ -47,7 +45,8 @@ class App extends React.Component<RootAppType> {
         );
     }
 }
-const mapStateToProps = (state:any) =>{
+
+const mapStateToProps = (state: any) => {
     debugger
     return {initialized: state.app.initialized}
 }

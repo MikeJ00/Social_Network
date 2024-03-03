@@ -1,6 +1,6 @@
 import {MainDialogsType} from "./store";
 
-const ADD_MESSAGE_POST = "ADD-MESSAGE-POST"
+const ADD_MESSAGE_POST = "dialogs/ADD-MESSAGE-POST"
 // const UPDATE_NEW_MESSAGE_TEXT = "UPDATE-NEW-MESSAGE-TEXT"
 
 let initialState = {
