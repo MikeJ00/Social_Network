@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState} from 'react';
 import styles from './user.module.css'
 import {UsersType} from "../../redux/users-reducer";
 import userPhoto from "../../assets/images/user.png"
@@ -17,21 +17,57 @@ type RootUsersTypeForComponent = {
 }
 let baseUrl = "https://social-network.samuraijs.com/api/1.0"
 export const UsersFunc = (props: RootUsersTypeForComponent) => {
+    let portionSize = 10
+
 
     let pagesCount = Math.ceil(props.totalUsersCount / props.pageSize);
     let pages = [];
     for (let i = 1; i <= pagesCount; i++) {
         pages.push(i)
     }
-    return <div>
+    let portionCount = Math.ceil(pagesCount / portionSize);
+    let [currentPortion, setCurrentPortion] = useState(1);
+    let currentLeftBorder = (currentPortion - 1) * portionSize + 1;
+    let currentRightBorder = currentPortion * portionSize;
+    return (
         <div>
-            {pages.map(p => {
-                return <span key={p} className={props.currentPage === p ? styles.selectedPage : undefined}
-                             onClick={(e: any) => {
-                                 props.onPageClickChanged(p)
-                             }}>{p}</span>
-            })}
-        </div>
+            <div>
+                {
+                    currentPortion > 1
+                        ? <span>
+			<button onClick={ () => {
+                props.onPageClickChanged(pages[0])
+                setCurrentPortion(1)
+            }}>toFirst</button>
+			<button onClick={ () => {
+                currentPortion !== 1 && setCurrentPortion(currentPortion - 1)
+            }}> PREV </button>
+		</span>
+                        : null
+                }{
+                pages
+                    .filter(p => currentLeftBorder <= p && p <= currentRightBorder)
+                    .map( p => (
+                        <span
+                            key={p}
+                            onClick={ (e) => {props.onPageClickChanged(p)} }
+                            // className={currentPage === p ? s.selectedPage : s.pageLink}> {p}
+                >{p}
+			</span>
+                    ))
+            }{
+                currentPortion < portionCount
+                    ? <span>
+			<button onClick={() => {
+                currentPortion !== pagesCount && setCurrentPortion(currentPortion + 1)
+            }}> NEXT </button> <button onClick={ () => {
+                        props.onPageClickChanged(pages[pages.length - 1])
+                        setCurrentPortion(portionCount)
+                    }}>toLast</button>
+		</span>
+                    : null
+            }
+            </div>
         {props.users.map(u => <div key={u.id}>
                 <span>
                     <div>
@@ -73,4 +109,4 @@ export const UsersFunc = (props: RootUsersTypeForComponent) => {
         </span>
         </div>)}
     </div>
-}
+    )}
