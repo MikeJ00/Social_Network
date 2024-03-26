@@ -24,6 +24,11 @@ export const userAPI = {
     },
     addFollow(id: number) {
         return instance.post(`follow/${id}`)
+    },
+}
+export const securityAPI = {
+    getCaptcha() {
+        return instance.get(`/security/get-captcha-url`)
     }
 }
 export const profileAPI = {
@@ -51,8 +56,8 @@ export const profileAPI = {
         debugger
         let formData = new FormData()
         formData.append("image", photoFile)
-        return instance.put(`/profile/photo`, formData,{
-            headers:{
+        return instance.put(`/profile/photo`, formData, {
+            headers: {
                 'Content-Type': 'multipart/form-data'
             }
         });
@@ -65,10 +70,10 @@ export const authAPI = {
                 return res
             })
     },
-    loginMe(email:string, password:string, rememberMe:boolean){
-        return instance.post(`/auth/login`, {email, password, rememberMe})
+    loginMe(email: string, password: string, rememberMe: boolean, captcha = null) {
+        return instance.post(`/auth/login`, {email, password, rememberMe, captcha})
     },
-    logOut(){
+    logOut() {
         return instance.delete(`/auth/login`)
     }
 }
