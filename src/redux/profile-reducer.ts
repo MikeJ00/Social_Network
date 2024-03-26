@@ -7,6 +7,7 @@ const UPDATE_NEW_POST_TEXT = "profile/UPDATE-NEW-POST-TEXT";
 const SET_USER_PROFILE = "profile/SET_USER_PROFILE"
 const SET_STATUS = "profile/SET_STATUS"
 const DELETE_POST = "profile/DELETE_POST"
+const SAVE_PHOTO = "profile/SAVE_PHOTO"
 let initialState = {
     postsData: [
         {id: "1", message: "Hi, how are you, man?", likesCount: 2},
@@ -44,6 +45,10 @@ export const profileReducer = (state = initialState, action: RootActionProfileTy
         case DELETE_POST: {
             return {...state, postsData: state.postsData.filter((p) => p.id != action.postId)}
         }
+        case SAVE_PHOTO: {
+            debugger
+            return {...state, profile: {...state.profile, photos:action.photos }}
+        }
         default:
             return state
     }
@@ -61,17 +66,22 @@ export const deletePostAC = (postId: number) => ({
         type: DELETE_POST, postId
     }
 )
+export const savePhotoAC = (photos: string) => ({
+        type: SAVE_PHOTO, photos
+    }
+)
 
 // type MainActionType = typeof addPostAC | typeof updateNewPostTextAC
 export type RootActionProfileType = addPostActionType
     | setUserProfileActionType | setStatusActionType
-    | deletePostActionType
+    | deletePostActionType | setPhotoActionType
 
 // type updateNewPostTextActionType = ReturnType<typeof updateNewPostTextAC>
 type addPostActionType = ReturnType<typeof addPostAC>
 type setUserProfileActionType = ReturnType<typeof setUserProfileAC>
 type setStatusActionType = ReturnType<typeof setStatusAC>
 type deletePostActionType = ReturnType<typeof deletePostAC>
+type setPhotoActionType = ReturnType<typeof savePhotoAC>
 
 export const getUsersProfileTC = (userId: number) => async (dispatch: any) => {
     debugger
@@ -90,5 +100,13 @@ export const updateStatusTC = (status: string) => async (dispatch: any) => {
     let pr = await profileAPI.updateStatus(status)
         if (pr.data.resultCode === 0) {
             dispatch(setStatusAC(status))
+        }
+}
+export const savePhotoTC = (file: string) => async (dispatch: any) => {
+    debugger
+    let pr = await profileAPI.savePhoto(file)
+        if (pr.data.resultCode === 0) {
+            debugger
+            dispatch(savePhotoAC(pr.data.data.photos))
         }
 }
