@@ -1,7 +1,7 @@
 export type MainStateType = {
     profilePage: ProfileType
     dialogsPage: MainDialogsType
-    auth:any
+    auth: any
 }
 export type DialogsTypeLesson43 = {
     dialogsData: Array<DialogsDataType>
@@ -9,7 +9,7 @@ export type DialogsTypeLesson43 = {
     newMessageText: string
     changeNewMessageTextCb: (text: string) => void
     addMessage: (newMessageText: string) => void
-    isAuth:boolean
+    isAuth: boolean
 }
 export type MyPostsTypeLesson43 = {
     postsData: Array<PostsDataType>
@@ -19,10 +19,29 @@ export type MyPostsTypeLesson43 = {
 }
 export type ProfileType = {
     postsData: Array<PostsDataType>
-    // newPostText: string
-    profile:null
-    status:string
-    // addPost: (postMessages: string) => void
+    profile: null | ProfileTypeCurrent
+    status: string
+}
+export type ProfileTypeCurrent = {
+    'aboutMe': null | string
+    'contacts': {
+        'facebook': null | string
+        'website': null | string
+        'vk': null | string
+        'twitter': null | string
+        'instagram': null | string
+        'youtube': null | string
+        'github': null | string
+        'mainLink': null | string
+    },
+    'lookingForAJob': boolean
+    'lookingForAJobDescription': null | string
+    'fullName': string
+    'userId': number
+    'photos': {
+        'small': null | string
+        'large': null | string
+    }
 }
 export type PostsDataType = {
     id: string | number

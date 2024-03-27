@@ -3,7 +3,7 @@ import {stopSubmit} from "redux-form";
 import {getAuthUserDataTC} from "./auth-reducer";
 import {debuglog} from "util";
 
-type AuthReducerType = {
+export type AuthReducerType = {
     initialized: false
 }
 type RootAuthType = {

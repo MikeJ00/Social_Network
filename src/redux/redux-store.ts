@@ -20,5 +20,3 @@ type RootActions = RootActionDialogType | RootActionProfileType
 export type RootStateRedux = ReturnType<typeof rootReducer>
 export type RootStoreRedux = Store<RootStateRedux, RootActions>
 export let store = createStore(rootReducer, applyMiddleware(thunkMiddleware))
-
-window.store = store

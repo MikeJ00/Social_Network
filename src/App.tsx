@@ -1,7 +1,7 @@
-import React, {ComponentType} from 'react';
+import React from 'react';
 import './App.css';
 import {Navbar} from "./components/Navbar/Navbar";
-import {Route, withRouter} from "react-router-dom";
+import {Redirect, Route, withRouter} from "react-router-dom";
 import {DialogsContainer} from "./components/Dialogs/DialogsContainer";
 import {UsersContainer} from "./components/Users/UsersContainer";
 import {ProfileContainer} from "./components/Profile/ProfileContainer";
@@ -11,6 +11,7 @@ import {connect} from "react-redux";
 import {compose} from "redux";
 import {initializedSuccessAppTC} from "./redux/app-reducer";
 import {Preloader} from "./components/common/Preloader/Preloader";
+import {RootStateRedux} from "src/redux/redux-store";
 
 type RootAppType = {
     initializedSuccessAppTC: () => void
@@ -32,13 +33,15 @@ class App extends React.Component<RootAppType> {
                 <HeaderContainer/>
                 <Navbar/>
                 <div className='app-wrapper-content'>
-                    <Route exact path='/dialogs'
+                    <Route exact path='/'
+                           render={() => <Redirect to={'/profile'}/>}/>
+                    <Route path='/dialogs'
                            render={() => <DialogsContainer/>}/>
-                    <Route exact path='/profile:userId?'
+                    <Route path='/profile:userId?'
                            render={() => <ProfileContainer/>}/>
-                    <Route exact path='/users'
+                    <Route path='/users'
                            render={() => <UsersContainer/>}/>
-                    <Route exact path='/login'
+                    <Route path='/login'
                            render={() => <LoginContainer/>}/>
                 </div>
             </div>

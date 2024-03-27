@@ -40,18 +40,9 @@ export const Dialogs = (props: DialogsTypeLesson43) => {
     let messagesElements = props.messagesData.map(
         (el) => <DialogMessage message={el.message} id={el.id} key={el.id}/>
     )
-    // const onMessageChange = (e: ChangeEvent<HTMLTextAreaElement>) => {
-    //     props.changeNewMessageTextCb(e.currentTarget.value)
-    // }
-    // const onAddMessage = () => {
-    //     props.addMessage(props.newMessageText)
-    // }
     const addNewMessage = (values: any) => {
         props.addMessage(values.newMessageText)
     }
-    // if(!props.isAuth){
-    //     return <Redirect to={"/login"}/>
-    // }
 
     return (
         <div className={s.dialogs}>
@@ -61,16 +52,6 @@ export const Dialogs = (props: DialogsTypeLesson43) => {
             <div className={s.messagesInDialogs}>
                 {messagesElements}
                 <ReduxDialogsForm onSubmit={addNewMessage}/>
-
-                {/*<textarea onChange={onMessageChange}*/}
-                {/*          placeholder={"Enter you message"}*/}
-                {/*          value={props.newMessageText}/>*/}
-
-                {/*<div>*/}
-                {/*    <button onClick={onAddMessage}>*/}
-                {/*        Add post*/}
-                {/*    </button>*/}
-                {/*</div>*/}
             </div>
         </div>
 

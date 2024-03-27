@@ -35,11 +35,11 @@ export const UsersFunc = (props: RootUsersTypeForComponent) => {
                 {
                     currentPortion > 1
                         ? <span>
-			<button onClick={ () => {
+			<button onClick={() => {
                 props.onPageClickChanged(pages[0])
                 setCurrentPortion(1)
             }}>toFirst</button>
-			<button onClick={ () => {
+			<button onClick={() => {
                 currentPortion !== 1 && setCurrentPortion(currentPortion - 1)
             }}> PREV </button>
 		</span>
@@ -47,12 +47,14 @@ export const UsersFunc = (props: RootUsersTypeForComponent) => {
                 }{
                 pages
                     .filter(p => currentLeftBorder <= p && p <= currentRightBorder)
-                    .map( p => (
+                    .map(p => (
                         <span
                             key={p}
-                            onClick={ (e) => {props.onPageClickChanged(p)} }
+                            onClick={(e) => {
+                                props.onPageClickChanged(p)
+                            }}
                             // className={currentPage === p ? s.selectedPage : s.pageLink}> {p}
-                >{p}
+                        >{p}
 			</span>
                     ))
             }{
@@ -60,7 +62,7 @@ export const UsersFunc = (props: RootUsersTypeForComponent) => {
                     ? <span>
 			<button onClick={() => {
                 currentPortion !== pagesCount && setCurrentPortion(currentPortion + 1)
-            }}> NEXT </button> <button onClick={ () => {
+            }}> NEXT </button> <button onClick={() => {
                         props.onPageClickChanged(pages[pages.length - 1])
                         setCurrentPortion(portionCount)
                     }}>toLast</button>
@@ -68,7 +70,7 @@ export const UsersFunc = (props: RootUsersTypeForComponent) => {
                     : null
             }
             </div>
-        {props.users.map(u => <div key={u.id}>
+            {props.users.map(u => <div key={u.id}>
                 <span>
                     <div>
                         <NavLink to={'/profile' + u.id}>
@@ -97,16 +99,16 @@ export const UsersFunc = (props: RootUsersTypeForComponent) => {
                         }
                             </div>
                             </span>
-            <span>
+                <span>
                             <span>
                             <div>{u.name}</div>
                         <div>{u.status}</div>
                     </span>
             <span>
-                        <div>{"u.location.country"}</div>
-                        <div>{"u.location.city"}</div>
+                        <div>{u.location}</div>
                     </span>
         </span>
-        </div>)}
-    </div>
-    )}
+            </div>)}
+        </div>
+    )
+}

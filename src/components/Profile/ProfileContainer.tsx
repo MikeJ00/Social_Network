@@ -71,7 +71,6 @@ class ProfileContainerClassComponent extends React.Component<RootType, any> {
     }
 
     render() {
-        // if (!this.props.isAuth) return <Redirect to={"login"}/>
         return (<Profile {...this.props} profile={this.props.profile}
                          isOwner={!this.props.match.params.userId}
                          status={this.props.status}
@@ -93,22 +92,4 @@ let mapStateToProps = (state: any) => {
 export const ProfileContainer = compose(
     connect(mapStateToProps, {getUsersProfileTC, getStatusTC, updateStatusTC,savePhotoTC }),
     withRouter,
-    // AuthWithRedirect
 )(ProfileContainerClassComponent)
-
-
-// let AuthRedirectComponent = AuthWithRedirect(ProfileContainerClassComponent);
-
-// let mapStateToPropsForRedirect = (state: any) => ({
-//     isAuth: state.auth.isAuth
-// })
-// AuthRedirectComponent = connect(mapStateToPropsForRedirect)(AuthRedirectComponent);
-
-// (props:RootType) =>{
-//     if(!props.isAuth) return <Redirect to={"login"}/>
-//     return <ProfileContainerClassComponent{...props}/>
-// }
-
-// let withUrlDataContainerComponent = withRouter(AuthRedirectComponent);
-
-// export const ProfileContainer = connect(mapStateToProps, {getUsersProfileTC})(withUrlDataContainerComponent)
